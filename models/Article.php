@@ -80,4 +80,37 @@ class Article extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Comment::className(), ['article_id' => 'id']);
     }
+    
+    public function saveImage($filename)
+    {
+        $this->image = $filename;
+        $this->save(false);
+    }
+    
+    public function deleteImage()
+    {
+        $imageUploadModel = new ImageUpload();
+        $imageUploadModel->deleteCurrentImage($this->image);
+    }
+    
+    public function beforeDelete()
+    {
+        $this->deleteImage();
+        return parent::beforeDelete();
+    }
+    
+    /**
+     * Returns the current image if it exists. 
+     * Otherwise returns the default image.
+     * 
+     * @return string Image name
+     */
+    public function getImage()
+    {
+        if($this->image){
+            return '/uploads/' . $this->image;
+        }
+        
+        return '/default.jpg';
+    }
 }
