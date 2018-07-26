@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\Category;
 
 /**
  * This is the model class for table "article".
@@ -113,4 +114,21 @@ class Article extends \yii\db\ActiveRecord
         
         return '/default.jpg';
     }
+    
+    public function getCategory()
+    {
+        return $this->hasOne(Category::className(), ['id' => 'category_id']);
+    }
+    
+    public function saveCategory($category_id)
+    {
+        $category = Category::findOne($category_id);
+        if($category != null){
+            $this->link('category', $category);
+            return true;
+        }
+        
+    }
+    
+    
 }

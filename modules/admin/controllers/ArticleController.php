@@ -10,6 +10,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\ImageUpload;
 use yii\web\UploadedFile;
+use app\models\Category;
+use yii\helpers\ArrayHelper;
 
 /**
  * ArticleController implements the CRUD actions for Article model.
@@ -149,6 +151,32 @@ class ArticleController extends Controller
         return $this->render('image',[
             'model' => $model,
         ]);
+    }
+    
+    /**
+     * Sets category for specific Article
+     * 
+     * @param type $id Article id
+     * @return mixed View
+     */
+    public function actionSetCategory($id)
+    {
+        $article = $this->findModel($id);
+        $selectedCategory = ($article->category) ? $article->category->id : '0';
+        $categories = Category::getAllCategories();
+        
+        if(Yii::$app->request->isPost){
+            $category = Yii::$app->request->post('category');
+            if($article->saveCategory($category)){
+                return $this->redirect(['view', 'id' => $article->id]);
+            }
+        }
+        
+        return $this->render('category', [
+            'article' => $article,
+            'selectedCategory' => $selectedCategory,
+            'categories' => $categories,
+        ]);        
     }
     
     
