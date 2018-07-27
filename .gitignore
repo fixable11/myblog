@@ -33,3 +33,7 @@ tests/_support/_generated
 /.vagrant
 
 .vs
+
+#gulp
+/gulp/node_modules
+/gulp/package-lock.json
