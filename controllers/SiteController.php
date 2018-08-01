@@ -9,6 +9,9 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Article;
+use yii\data\Pagination;
+use app\models\Category;
 
 class SiteController extends Controller
 {
@@ -61,7 +64,18 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $data = Article::getAll(2);
+        $popular = Article::getPopular();
+        $recent = Article::getRecent();
+        $categories = Category::getAll();
+        
+        return $this->render('index',[
+            'articles' => $data['articles'],
+            'pagination' => $data['pagination'],
+            'popular' => $popular,
+            'recent' => $recent,
+            'categories' => $categories,
+        ]);
     }
 
     /**
@@ -125,4 +139,54 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
+    
+    /**
+     * Displays single page.
+     *
+     * @return string
+     */
+    public function actionSingle()
+    {
+        return $this->render('single');
+    }
+    
+    /**
+     * Displays category page.
+     *
+     * @return string
+     */
+    public function actionCategory($id, $pageSize = null)
+    {
+        if(is_null($pageSize)){
+            $pageSize = Yii::$app->params['pageDefaultSize'];
+        }
+        $data = Category::getArticlesByCategory($id);
+        $popular = Article::getPopular();
+        $recent = Article::getRecent();
+        $categories = Category::getAll();
+        
+        return $this->render('category', [
+            'articles' => $data['articles'],
+            'pagination' => $data['pagination'],
+            'popular' => $popular,
+            'recent' => $recent,
+            'categories' => $categories,
+        ]);
+    }
+    
+    public function actionView($id)
+    {
+        $article = Article::findOne($id);
+        $popular = Article::getPopular();
+        $recent = Article::getRecent();
+        $categories = Category::getAll();
+        
+        return $this->render('single', [
+            'article' => $article,
+            'popular' => $popular,
+            'recent' => $recent,
+            'categories' => $categories,        
+        ]);
+    }
+    
 }

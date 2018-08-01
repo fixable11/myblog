@@ -6,6 +6,7 @@ use Yii;
 use app\models\Category;
 use yii\helpers\ArrayHelper;
 use app\models\ArticleTag;
+use yii\data\Pagination;
 
 /**
  * This is the model class for table "article".
@@ -162,5 +163,50 @@ class Article extends \yii\db\ActiveRecord
         ArticleTag::deleteAll(['article_id' => $this->id]);
     }
     
+    public function getDate()
+    {
+        return Yii::$app->formatter->asDate($this->date);
+    }
+    
+    
+    /**
+     * The method returns pagination data and the appropriate Article model 
+     * 
+     * @param int $pageSize Page size
+     * 
+     * @return array $array['articles'] = [[ActiveQuery]], 
+     * $array['pagination'] = [[Pagination]]
+     */
+    public static function getAll($pageSize = null)
+    {
+        if(is_null($pageSize)){
+            $pageSize = Yii::$app->params['pageDefaultSize'];
+        }
+        $query = Article::find()->where(['status' => 1]);
+        $count = $query->count();
+        $pagination = new Pagination([
+            'totalCount' => $count, 
+            'pageSize' => $pageSize
+        ]);
+        
+        $articles = $query->offset($pagination->offset)
+        ->limit($pagination->limit)
+        ->all();
+        
+        $data['articles'] = $articles;
+        $data['pagination'] = $pagination;
+        
+        return $data;
+    }
+    
+    public static function getPopular()
+    {
+        return Article::find()->orderBy('viewed desc')->limit(Yii::$app->params['popularLimit'])->all();
+    }
+    
+    public static function getRecent()
+    {
+        return Article::find()->orderBy('date desc')->limit(Yii::$app->params['recentLimit'])->all();
+    }
     
 }
