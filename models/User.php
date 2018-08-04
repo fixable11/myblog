@@ -128,9 +128,37 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         return $this->password === $password;
     }
     
+    /**
+     * Saves the assigned attributes to the DB
+     * 
+     * @return bool Whether the save is successful
+     */
     public function create()
     {
         return $this->save(false);
+    }
+    
+    /**
+     * Fills the attributes with an appropriate values
+     * 
+     * @param int $uid
+     * @param string $name
+     * @param string $photo
+     * @return bool Whether the user is logged in successful
+     */
+    public function saveFromVk($uid, $name, $photo)
+    {
+        $user = User::findOne($uid);
+        
+        if($user){
+            return Yii::$app->user->login($user);
+        }
+        $this->id = $uid;
+        $this->username = $name;
+        $this->photo = $photo;
+        $this->create();
+        
+        return Yii::$app->user->login($this);
     }
 
 }

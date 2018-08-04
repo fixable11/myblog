@@ -209,4 +209,10 @@ class Article extends \yii\db\ActiveRecord
         return Article::find()->orderBy('date desc')->limit(Yii::$app->params['recentLimit'])->all();
     }
     
+    public function saveArticle()
+    {
+        $this->user_id = Yii::$app->user->id;
+        return $this->save();
+    }
+    
 }

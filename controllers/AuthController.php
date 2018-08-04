@@ -5,6 +5,7 @@ namespace app\controllers;
 use yii\web\Controller;
 use app\models\LoginForm;
 use app\models\RegisterForm;
+use app\models\User;
 use Yii;
 
 /**
@@ -60,5 +61,13 @@ class AuthController extends Controller
         }
         
         return $this->render('register', ['model' => $model]);
+    }
+    
+    public function actionLoginVk($uid, $first_name, $photo)
+    {
+        $user = new User();
+        if($user->saveFromVk($uid, $first_name, $photo)){
+            return $this->redirect(['site/index']);
+        }
     }
 }
