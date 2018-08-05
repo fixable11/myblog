@@ -7,6 +7,7 @@ use app\models\Category;
 use yii\helpers\ArrayHelper;
 use app\models\ArticleTag;
 use yii\data\Pagination;
+use app\models\User;
 
 /**
  * This is the model class for table "article".
@@ -213,6 +214,22 @@ class Article extends \yii\db\ActiveRecord
     {
         $this->user_id = Yii::$app->user->id;
         return $this->save();
+    }
+    
+    public function getArticleComments()
+    {
+        return $this->getComments()->where(['status' => 1])->all();
+    }
+    
+    public function getAuthor()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+    
+    public function viewedCounter()
+    {
+        $this->viewed += 1;
+        return $this->save(false);
     }
     
 }

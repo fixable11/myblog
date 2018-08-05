@@ -32,6 +32,6 @@ class PublicAsset extends AssetBundle
         'js/scripts.js',
     ];
     public $depends = [
-        
+        'yii\web\JqueryAsset',
     ];
 }
