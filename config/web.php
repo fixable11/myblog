@@ -52,6 +52,17 @@ $config = [
             ],
         ],
         
+        'assetManager' => [
+            'bundles' => [
+                'yii\boostrap4\BootstrapAsset' => [
+                    'sourcePath' => '@npm/bootstrap/dist'
+                ],
+                'yii\bootstrap4\BootstrapPluginAsset' => [
+                    'sourcePath' => '@npm/bootstrap/dist'
+                ],
+            ]
+        ],
+        
     ],
     'modules' => [
         'admin' => [
