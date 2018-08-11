@@ -21,6 +21,11 @@ class Sidebar extends \yii\bootstrap\Widget
      * @var array|ActiveQuery[] the all existing categories.
      */
     public $categories;
+    
+    /**
+     * @var app/models/SubscribeForm the model for subscribe functionality
+     */
+    public $subModel;
 
     /**
      * {@inheritdoc}
@@ -29,11 +34,13 @@ class Sidebar extends \yii\bootstrap\Widget
     {
         if(isset($this->popular) 
         && isset($this->recent) 
-        && isset($this->categories)){
+        && isset($this->categories) 
+        && isset($this->subModel)){
             return $this->render('/widgets/sidebar', [
                'popular' => $this->popular,
                'recent' => $this->recent,
                'categories' => $this->categories,
+               'subModel' => $this->subModel,
            ]);
         }
     }

@@ -60,6 +60,9 @@ $config = [
                 'yii\bootstrap4\BootstrapPluginAsset' => [
                     'sourcePath' => '@npm/bootstrap/dist'
                 ],
+                //'yii\web\JqueryAsset' => false,
+                //'yii\bootstrap\BootstrapAsset' => false,
+                
             ]
         ],
         

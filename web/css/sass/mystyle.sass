@@ -1,0 +1,45 @@
+html,body
+	width: 100%
+	min-height: 100%
+	margin: 0
+	padding: 0
+body
+	font-size: 16px
+	min-width: 320px
+	position: relative
+	line-height: 1.65
+	font-family: Arial, sans-serif
+	overflow-x: hidden
+	min-height: 100%
+	background-color: #fff
+	input, textarea
+		border: #666 1px solid
+		&:focus:required:invalid
+			border-color: red
+		&:required:valid
+			border-color: green
+
+h1,h2,h3,h4,h5,h6
+	margin: 0
+	padding: 0
+ul,li,p
+	margin: 0
+	padding: 0
+li
+	list-style-type: none
+a
+	text-decoration: none
+
+b, strong
+	font-weight: bold
+
+
+@import 'sections/normalize.sass'
+@import 'sections/mainArticles.sass'
+@import 'sections/mainHeader.sass'
+@import 'sections/posts.sass'
+@import 'sections/subscribe.sass'
+@import 'sections/primarySidebar.sass'
+@import 'sections/freshRecords.sass'
+@import 'sections/categories.sass'
+@import 'sections/tagsWidget.sass'

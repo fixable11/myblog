@@ -14,6 +14,7 @@ use yii\data\Pagination;
 use app\models\Category;
 use app\models\Comment;
 use app\models\CommentForm;
+use app\models\SubscribeForm;
 
 class SiteController extends Controller
 {
@@ -71,12 +72,15 @@ class SiteController extends Controller
         $recent = Article::getRecent();
         $categories = Category::getAll();
         
+        $subModel = new SubscribeForm();
+        
         return $this->render('index',[
             'articles' => $data['articles'],
             'pagination' => $data['pagination'],
             'popular' => $popular,
             'recent' => $recent,
             'categories' => $categories,
+            'subModel' => $subModel,
         ]);
     }
 

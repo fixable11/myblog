@@ -770,26 +770,6 @@ recent post
 /*===================
 Categories
 ======================*/
-.widget ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-.widget ul li a {
-    line-height: 26px;
-    font-size: 12px;
-    font-weight: 500;
-    color: #323232;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-family: 'Merriweather', serif;
-    transition: all 0.33s;
-}
-
-.widget ul li a:hover {
-    color: #00BFF3
-}
 
 .widget.border ul li {
     border-bottom: 1px solid #eeeeee;
