@@ -25,12 +25,12 @@ use yii\helpers\Url;
         </div>
         <div class="post__social">
           <div class="post__identity">
-            <a href="#" class="post__identityLeft">
+            <a href="<?php if(isset($article->author->email)) echo '#'; else echo 'https://vk.com/id'.$article->author->id; ?>" class="post__identityLeft">
               <img src="<?= $article->author->photo_rec; ?>" alt="thumbnail image" class="post__thumbnail">
             </a>
             <div class="post__identityRight">
-              <a href="#" class="post__author"><?= $article->author->username; ?> <?= $article->author->last_name; ?></a> 
-              <span class="post__date"><?= $article->getDate(); ?></span>
+              <a href="<?php if(isset($article->author->email)) echo '#'; else echo 'https://vk.com/id'.$article->author->id; ?>" class="post__author"><?= $article->author->username; ?> <?= $article->author->last_name; ?></a> 
+              <span class="post__date" data-timestamp="<?= strtotime($article->getDate()); ?>"><?= $article->getDate(); ?></span>
             </div>
           </div>
           <ul class="post__socialIcons">

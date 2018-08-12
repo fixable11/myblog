@@ -74,6 +74,10 @@ $config = [
             'class' => 'app\components\Delimiter',
         ],
         
+        'formatter' => [
+          'dateFormat' => 'dd.MM.yyyy',
+        ]
+        
     ],
     'modules' => [
         'admin' => [
