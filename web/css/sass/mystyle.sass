@@ -1,6 +1,6 @@
 html,body
 	width: 100%
-	min-height: 100%
+	height: 100%
 	margin: 0
 	padding: 0
 body
@@ -34,6 +34,17 @@ b, strong
 	font-weight: bold
 
 
+.wrapper
+	display: -webkit-flex
+	display: -moz-flex
+	display: -ms-flex
+	display: -o-flex
+	display: flex
+	height: 100%
+	flex-direction: column
+.content
+	flex: 1 0 auto
+
 @import 'sections/normalize.sass'
 @import 'sections/mainArticles.sass'
 @import 'sections/mainHeader.sass'
@@ -43,3 +54,4 @@ b, strong
 @import 'sections/freshRecords.sass'
 @import 'sections/categories.sass'
 @import 'sections/tagsWidget.sass'
+@import 'sections/footer.sass'

@@ -66,6 +66,10 @@ $config = [
             ]
         ],
         
+        'delimiter' => [
+            'class' => 'app\components\Delimiter',
+        ],
+        
     ],
     'modules' => [
         'admin' => [

@@ -27,40 +27,44 @@ PublicAsset::register($this);
 </head>
 <body>
 	<?php $this->beginBody() ?>
-	<header class="mainHeader">
-		<div class="mainHeaderInner">
-			<div class="container">
-				<div class="row">
-					<nav class="mainHeader__nav mainHeaderNav">
-						<a class="mainHeaderNav__logoLink" href="<?= Url::home(); ?>"><img src="/images/logo.jpg" alt="logo"></a>
-						<ul class="mainHeaderNav__ul">
-							<li class="mainHeaderNav__li"><a class="mainHeaderNav__a" href="<?= Url::home(); ?>">Главная</a></li>
-							<?php if (Yii::$app->user->isGuest): ?>
-								<li class="mainHeaderNav__li"><a class="mainHeaderNav__a" href="<?= Url::toRoute(['auth/login']) ?>">Логин</a></li>
-								<li class="mainHeaderNav__li"><a class="mainHeaderNav__a" href="<?= Url::toRoute(['auth/register']) ?>">Регистрация</a></li>
-							<?php else: ?>
-								<?= Html::beginForm(['/auth/logout'], 'post') ?>
-								<li class="mainHeaderNav__li">
-									<?= Html::submitButton('Выход (' . Yii::$app->user->identity->username . ')', ['class' => 'mainHeaderNav__a']);
-									?>
-								</li>
-								<?= Html::endForm() ?>
-							<?php endif; ?>
-						</ul>
-					</nav>
+	<div class="wrapper">
+		<header class="mainHeader">
+			<div class="mainHeaderInner">
+				<div class="container">
+					<div class="row">
+						<nav class="mainHeader__nav mainHeaderNav">
+							<a class="mainHeaderNav__logoLink" href="<?= Url::home(); ?>"><img src="/images/logo.svg" alt="logo"></a>
+							<ul class="mainHeaderNav__ul">
+								<li class="mainHeaderNav__li"><a class="mainHeaderNav__a" href="<?= Url::home(); ?>">Главная</a></li>
+								<?php if (Yii::$app->user->isGuest): ?>
+									<li class="mainHeaderNav__li"><a class="mainHeaderNav__a" href="<?= Url::toRoute(['auth/login']) ?>">Логин</a></li>
+									<li class="mainHeaderNav__li"><a class="mainHeaderNav__a" href="<?= Url::toRoute(['auth/register']) ?>">Регистрация</a></li>
+								<?php else: ?>
+									<?= Html::beginForm(['/auth/logout'], 'post') ?>
+									<li class="mainHeaderNav__li">
+										<?= Html::submitButton('Выход (' . Yii::$app->user->identity->username . ')', ['class' => 'mainHeaderNav__a']);
+										?>
+									</li>
+									<?= Html::endForm() ?>
+								<?php endif; ?>
+							</ul>
+						</nav>
+					</div>
 				</div>
 			</div>
 		</header>
 
-		<?= $content; ?>
+		<div class="content">
+			<?= $content; ?>
+		</div>
 
-		<footer class="footer-widget-section">
-			<div class="footer-copy">
+		<footer class="mainFooter">
+			<div class="mainFooterWrap">
 				<div class="container">
 					<div class="row">
-						<div class="col-md-12">
-							<div class="text-center">&copy; 2018 
-								<a href="#">Treasure Blog.</a>
+						<div class="col-lg-12">
+							<div class="mainFooter__copy">
+								&copy; 2018 Treasure Blog.
 							</div>
 						</div>
 					</div>
@@ -68,7 +72,9 @@ PublicAsset::register($this);
 			</div>
 		</footer>
 
-		<?php $this->endBody() ?>
-	</body>
-	</html>
-	<?php $this->endPage() ?>
+	</div><!-- /.wrapper -->
+
+	<?php $this->endBody() ?>
+</body>
+</html>
+<?php $this->endPage() ?>

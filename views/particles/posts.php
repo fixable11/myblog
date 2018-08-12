@@ -20,12 +20,7 @@ use yii\helpers\Url;
           <h2 class="h2 post__titlePost"><a class="posts__titlePostLink" href="<?= Url::toRoute(['site/view', 'id' => $article->id]); ?>"> <?= $article->title; ?></a></h2>
         </header>
         <div class="post__descBlock">
-          <p class="post__desc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-            tevidulabore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et
-            justo duo dolores rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-            ipsum dolor sit am Lorem ipsum dolor sitconsetetur sadipscing elitr, sed diam nonumy
-            eirmod tempor invidunt ut labore et dolore maliquyam erat, sed diam voluptua.
-          </p>
+          <p class="post__desc"><?= Yii::$app->delimiter->getShort($article->description); ?></p>
             <a href="<?= Url::toRoute(['site/view', 'id' => $article->id]); ?>" class="post__continue">Далее</a>
         </div>
         <div class="post__social">

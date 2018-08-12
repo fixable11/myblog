@@ -5,4 +5,5 @@ return [
     'popularLimit' => 3,
     'recentLimit' => 4,
     'pageDefaultSize' => 1,
+    'textLimit' => 500,
 ];
