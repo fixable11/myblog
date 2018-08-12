@@ -27,7 +27,8 @@ class PublicAsset extends AssetBundle
         'css/normalize.min.css'
     ];
     public $js = [
-        'js/fontawesome/all.min.js'
+        'js/fontawesome/all.min.js',
+        'js/scripts.min.js',
         //'js/bootstrap.min.js',
         //'js/owl.carousel.min.js',
         //'js/jquery.stickit.min.js',

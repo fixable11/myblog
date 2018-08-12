@@ -29,7 +29,7 @@
 	&__content
 		padding-left: 40px
 		padding-right: 40px
-		padding-bottom: 50px
+		padding-bottom: 30px
 	&__titles
 	&__titleCategory
 		text-align: center
@@ -46,7 +46,7 @@
 		margin-top: 20px
 		font-size: 16px
 	&__continue
-		font-size: 12px
+		font-size: 13px
 		letter-spacing: 1px
 		overflow: hidden
 		padding: 10px 20px
@@ -63,27 +63,57 @@
 			color: #fff
 	&__social
 		display: block
+		&::after
+			display: block
+			content: ''
+			clear: both
 	&__identity
 		float: left
+	&__identityLeft
+		display: block
+		float: left
+		width: 50px
+		height: 50px
+		text-align: center
+		line-height: 50px
+	&__identityRight
+		float: left
+		margin-left: 10px
+	&__thumbnail
+		display: inline-block
+		width: 40px
 	&__author
-		font-size: 14px
+		width: 100%
+		line-height: 25px
+		display: inline-block
+		font-size: 13px
+		font-weight: bold
+		color: #000
+		font-family: Arial
 	&__date
+		line-height: 25px
+		display: inline-block
+		width: 100%
 		font-size: 12px
 		font-family: Arial, sans-serif
 		font-style: italic
 	&__socialIcons
+		margin-top: 15px
+		float: right
 		display: -webkit-flex
 		display: -moz-flex
 		display: -ms-flex
 		display: -o-flex
 		display: flex
-		float: right
 	&__socialText
 		margin-left: 5px
 		font-family: Arial, sans-serif
 	&__socialOne
 		margin-right: 10px
 	&__socialLink
+	.fa-comments,
+	.fa-eye
+		font-size: 15px		
 
 
 .pagination

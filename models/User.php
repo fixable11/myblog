@@ -143,10 +143,12 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      * 
      * @param int $uid
      * @param string $name
+     * @param string $last_name
      * @param string $photo
+     * @param string $photo_rec
      * @return bool Whether the user is logged in successful
      */
-    public function saveFromVk($uid, $name, $photo)
+    public function saveFromVk($uid, $name, $last_name, $photo, $photo_rec)
     {
         $user = User::findOne($uid);
         
@@ -155,7 +157,9 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         }
         $this->id = $uid;
         $this->username = $name;
+        $this->last_name = $last_name;
         $this->photo = $photo;
+        $this->photo_rec = $photo_rec;
         $this->create();
         
         return Yii::$app->user->login($this);

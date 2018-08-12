@@ -7,6 +7,7 @@ use app\models\LoginForm;
 use app\models\RegisterForm;
 use app\models\User;
 use Yii;
+use yii\web\NotFoundHttpException;
 
 /**
  * Description of AuthController
@@ -30,6 +31,8 @@ class AuthController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         }
+        
+        //var_dump(Yii::secret_key);
 
         $model->password = '';
         return $this->render('/auth/login', [
@@ -63,10 +66,16 @@ class AuthController extends Controller
         return $this->render('register', ['model' => $model]);
     }
     
-    public function actionLoginVk($uid, $first_name, $photo)
+    public function actionLoginVk($uid, $first_name, $last_name, $photo, 
+    $photo_rec, $hash)
     {
+        $app_id = Yii::$app->params['app_id'];
+        $secret_key = Yii::$app->params['secret_key'];
+        if($hash != md5($app_id . $uid . $secret_key)){
+          throw new NotFoundHttpException();
+        }
         $user = new User();
-        if($user->saveFromVk($uid, $first_name, $photo)){
+        if($user->saveFromVk($uid, $first_name, $last_name, $photo, $photo_rec)){
             return $this->redirect(['site/index']);
         }
     }

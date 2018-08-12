@@ -24,7 +24,15 @@ use yii\helpers\Url;
             <a href="<?= Url::toRoute(['site/view', 'id' => $article->id]); ?>" class="post__continue">Далее</a>
         </div>
         <div class="post__social">
-          <div class="post__identity"><span class="post__author"><?= $article->author->username; ?></span> <span class="post__date"><?= $article->getDate(); ?></span></div>
+          <div class="post__identity">
+            <a href="#" class="post__identityLeft">
+              <img src="<?= $article->author->photo_rec; ?>" alt="thumbnail image" class="post__thumbnail">
+            </a>
+            <div class="post__identityRight">
+              <a href="#" class="post__author"><?= $article->author->username; ?> <?= $article->author->last_name; ?></a> 
+              <span class="post__date"><?= $article->getDate(); ?></span>
+            </div>
+          </div>
           <ul class="post__socialIcons">
             <li class="post__socialOne"><a href="#" class="post__socialLink"><i class="fas fa-comments"></i><span class="post__socialText">33</span></a></li>
             <li class="post__socialOne"><a href="#" class="post__socialLink"><i class="post__socialIcon fa fa-eye"></i><span class="post__socialText"><?= (int) $article->viewed; ?></span></a></li>
