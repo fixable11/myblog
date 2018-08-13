@@ -30,9 +30,7 @@ class AuthController extends Controller
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
-        }
-        
-        //var_dump(Yii::secret_key);
+        }    
 
         $model->password = '';
         return $this->render('/auth/login', [

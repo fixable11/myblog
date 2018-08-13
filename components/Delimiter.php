@@ -21,6 +21,7 @@ class Delimiter
   }
   
   /**
+   * The method shortens the text to a certain one
    * 
    * @param string $text text for trimming
    * @param int $limit limit of characters

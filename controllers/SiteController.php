@@ -154,6 +154,7 @@ class SiteController extends Controller
         $categories = Category::getAll();
         $comments = $article->getArticleComments(); //return comments with status 1
         $commentForm = new CommentForm();
+        $subModel = new SubscribeForm();
         
         $article->viewedCounter();
         
@@ -164,6 +165,7 @@ class SiteController extends Controller
             'categories' => $categories,   
             'comments' => $comments,
             'commentForm' => $commentForm,
+            'subModel' => $subModel,
         ]);
     }
     

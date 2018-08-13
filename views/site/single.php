@@ -11,62 +11,59 @@ use yii\helpers\Url;
 use app\widgets\Sidebar;
 use app\widgets\Comment;
 
-$this->title = 'My Yii Application';
+$this->title = 'single post';
 ?>
-<div class="main-content">
+<section class="single">
   <div class="container">
     <div class="row">
-      <div class="col-md-8">
-        <article class="post">
-          <div class="post-thumb">
-            <a href="blog.html"><img src="<?= $article->getImage(); ?>" alt=""></a>
-          </div>
-          <div class="post-content">
-            <header class="entry-header text-center text-uppercase">
-              <h6><a href="<?= Url::toRoute(['site/category', 'id' => $article->category->id]) ?>"> <?= $article->category->title; ?></a></h6>
+      <div class="col-lg-8">
+        <div class="singleWrap">
+          <article class="single__post">
+            <div class="single__content">
+              <header class="single__header">
+                <ul class="single__breadcrumbTrail">
+                  <li class="single__breadcrumb"><a href="#" class="single__breadcrumb">Главная</a></li>
+                  <li class="single__breadcrumb">/</li>
+                  <li class="single__breadcrumb"><a class="single__breadcrumLink" href="<?= Url::toRoute(['site/category', 'id' => $article->category->id]) ?>"> <?= $article->category->title; ?></a></li>
+                </ul>
+                <h1 class="single__title"><?= $article->title; ?></h1>
 
-              <h1 class="entry-title"><a href="<?= Url::toRoute(['site/view', 'id' => $article->id]) ?>"><?= $article->title; ?></a></h1>
 
+              </header>
+              <div class="single__text">
+                <?= $article->content; ?>
+              </div>
+              <div class="decoration">
+                <a href="#" class="btn btn-default">Decoration</a>
+                <a href="#" class="btn btn-default">Decoration</a>
+              </div>
 
-            </header>
-            <div class="entry-content">
-              <?= $article->content; ?>
+              <div class="social-share">
+                <span class="social__date" data-timestamp="<?= strtotime($article->getDate()); ?>"><?= $article->getDate(); ?></span>
+                <ul class="text-center pull-right">
+                </ul>
+              </div>
             </div>
-            <div class="decoration">
-              <a href="#" class="btn btn-default">Decoration</a>
-              <a href="#" class="btn btn-default">Decoration</a>
-            </div>
-
-            <div class="social-share">
-              <span
-                class="social-share-title pull-left text-capitalize"><?= $article->getDate(); ?></span>
-              <ul class="text-center pull-right">
-                <li><a class="s-facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-                <li><a class="s-twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-                <li><a class="s-google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>
-                <li><a class="s-linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-                <li><a class="s-instagram" href="#"><i class="fa fa-instagram"></i></a></li>
-              </ul>
-            </div>
-          </div>
-        </article>
-        <?=
-        Comment::widget([
+          </article>
+          <?=
+          Comment::widget([
             'article' => $article,
             'comments' => $comments,
             'commentForm' => $commentForm,
-        ]);
-        ?>
+          ]);
+          ?>
+        </div>
       </div>
-      <div class="col-md-4" data-sticky_column>
+      <div class="col-lg-4" data-sticky_column>
         <?=
         Sidebar::widget([
-            'popular' => $popular,
-            'recent' => $recent,
-            'categories' => $categories,
+          'popular' => $popular,
+          'recent' => $recent,
+          'categories' => $categories,
+          'subModel' => $subModel
         ]);
         ?>
       </div>
     </div>
   </div>
-</div>
+</section>

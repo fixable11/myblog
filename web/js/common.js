@@ -28,7 +28,7 @@ $(document).ready(function() {
 		$($selector).html($formattedDate + ' ' + $formattedTime);
 	}
 
-	newDate('.post__date');
+	newDate('.post__date, .social__date');
 	
 	
 });
