@@ -34,7 +34,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'html',
                 'label' => 'Image',
                 'value' => function($model){
-                    var_dump($model);
                     return Html::img($model->getImage(), ['width' => 200]);
                 }
             ],

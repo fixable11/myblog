@@ -76,13 +76,24 @@ $config = [
         
         'formatter' => [
           'dateFormat' => 'dd.MM.yyyy',
-        ]
+        ],
         
     ],
     'modules' => [
         'admin' => [
             'class' => 'app\modules\admin\Module',
         ],
+    ],
+    
+    'controllerMap' => [
+        'elfinder' => [
+            'class' => 'mihaildev\elfinder\PathController',
+            'access' => ['@'],
+            'root' => [
+                'path' => 'images/posts',
+                'name' => 'Files'
+            ],
+        ]
     ],
     
     'params' => $params,
