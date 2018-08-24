@@ -9,19 +9,21 @@ use yii\helpers\Html;
 
 $this->title = $name;
 ?>
-<div class="site-error">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <div class="alert alert-danger">
-        <?= nl2br(Html::encode($message)) ?>
+<div class="error">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="error__wrap">
+          <h1 class="error__title"><?= Html::encode($this->title) ?></h1>
+          <?php if ($message): ?>
+            <div class="alert alert-danger error__alert"><?= nl2br(Html::encode($message)) ?></div>
+          <?php else: ?>
+            <div class="alert alert-danger error__alert">Страница не найдена</div>
+          <?php endif; ?>
+          <p class="error__desc">Ошибка произошла при попытке веб-сервера обработать ваш запрос.</p>
+          <p class="error__desc">Свяжитесь с нами если вы уверены, что ошибка исходит со стороны сервера. Спасибо.</p>
+        </div>
+      </div>
     </div>
-
-    <p>
-        The above error occurred while the Web server was processing your request.
-    </p>
-    <p>
-        Please contact us if you think this is a server error. Thank you.
-    </p>
-
+  </div>
 </div>
