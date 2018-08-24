@@ -29,7 +29,7 @@ class PublicAsset extends AssetBundle
     public $js = [
         'js/fontawesome/all.min.js',
         'js/scripts.min.js',
-        //'js/bootstrap.min.js',
+        'js/bootstrap.min.js',
         //'js/owl.carousel.min.js',
         //'js/jquery.stickit.min.js',
         //'js/menu.js',

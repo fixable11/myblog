@@ -17,8 +17,18 @@ class LoginForm extends Model
     public $password;
     public $rememberMe = true;
 
-    private $_user = false;
-
+    private $_user;
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'password' => 'Пароль',
+            'rememberMe' => 'Запомнить',
+        ];
+    }
 
     /**
      * @return array the validation rules.
@@ -46,7 +56,7 @@ class LoginForm extends Model
             $user = $this->getUser();
 
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect email or password.');
+                $this->addError($attribute, 'Неправильный email или пароль.');
             }
         }
     }
@@ -70,7 +80,7 @@ class LoginForm extends Model
      */
     public function getUser()
     {
-        if ($this->_user === false) {
+        if ($this->_user === null) {
             $this->_user = User::findByEmail($this->email);
         }
 

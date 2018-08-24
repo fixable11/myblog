@@ -18,6 +18,10 @@ use Yii;
  */
 class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
+    
+    const ADMIN_STATUS = 1;
+    const USER_STATUS = 0;
+  
     /**
      * {@inheritdoc}
      */
@@ -32,8 +36,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function rules()
     {
         return [
-            [['isAdmin'], 'integer'],
-            [['username', 'email', 'password', 'photo'], 'string', 'max' => 255],
+            [['isAdmin'], 'default', 'value' => self::USER_STATUS],
         ];
     }
 
@@ -73,13 +76,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        foreach (self::$users as $user) {
-            if ($user['accessToken'] === $token) {
-                return new static($user);
-            }
-        }
-
-        return null;
+      throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
     }
 
     /**
@@ -106,7 +103,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      */
     public function getAuthKey()
     {
-        //return $this->authKey;
+        return $this->auth_key;
     }
 
     /**
@@ -114,9 +111,19 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      */
     public function validateAuthKey($authKey)
     {
-        //return $this->authKey === $authKey;
+        return $this->getAuthKey() === $authKey;
     }
-
+  
+    /**
+     * Saves the assigned attributes to the DB
+     * 
+     * @return bool Whether the save is successful
+     */
+    public function create()
+    {
+        return $this->save();
+    }
+    
     /**
      * Validates password
      *
@@ -125,17 +132,57 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      */
     public function validatePassword($password)
     {
-        return $this->password === $password;
+        return Yii::$app->security->validatePassword($password, $this->password);
     }
     
     /**
-     * Saves the assigned attributes to the DB
-     * 
-     * @return bool Whether the save is successful
+     * Generates password hash from password and sets it to the model
+     *
+     * @param string $password
      */
-    public function create()
+    public function setPassword($password)
     {
-        return $this->save(false);
+        $this->password = Yii::$app->security->generatePasswordHash($password);
+    }
+    
+    /**
+     * Generates "remember me" authentication key
+     */
+    public function generateAuthKey()
+    {
+        $this->auth_key = Yii::$app->security->generateRandomString();
+    }
+    
+    /**
+     * Generates new password reset token
+     */
+    public function generatePasswordResetToken()
+    {
+        $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
+    }
+    
+    /**
+     * Finds out if password reset token is valid
+     *
+     * @param string $token password reset token
+     * @return bool
+     */
+    public static function isPasswordResetTokenValid($token)
+    {
+        if (empty($token)) {
+            return false;
+        }
+        $timestamp = (int) substr($token, strrpos($token, '_') + 1);
+        $expire = Yii::$app->params['user.passwordResetTokenExpire'];
+        return $timestamp + $expire >= time();
+    }
+    
+    /**
+     * Removes password reset token
+     */
+    public function removePasswordResetToken()
+    {
+        $this->password_reset_token = null;
     }
     
     /**
@@ -168,6 +215,22 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function getImage()
     {
         return $this->photo;
+    }
+    
+    /**
+     * Finds user by password reset token
+     *
+     * @param string $token password reset token
+     * @return static|null
+     */
+    public static function findByPasswordResetToken($token)
+    {
+        if (!static::isPasswordResetTokenValid($token)) {
+            return null;
+        }
+        return User::findOne([
+            'password_reset_token' => $token,
+        ]);
     }
 
 }

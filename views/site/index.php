@@ -10,6 +10,16 @@ $this->title = 'Treasure main page';
 <section class="mainContent">
   <div class="container">
     <div class="row">
+      <?php if (Yii::$app->session->hasFlash('success')): ?>
+        <div class="col-lg-12">
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <p class="mainContent__successText"><?= Yii::$app->session->getFlash('success'); ?></p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </div>
+      <?php endif; ?>
       <div class="col-lg-12">
         <?= $this->render('@app/views/particles/mainArticles'); ?>  
       </div>
