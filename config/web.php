@@ -80,6 +80,10 @@ $config = [
           'dateFormat' => 'dd.MM.yyyy',
         ],
         
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+        ],
+        
     ],
     'modules' => [
         'admin' => [
