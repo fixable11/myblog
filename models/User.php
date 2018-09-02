@@ -214,6 +214,11 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     
     public function getImage()
     {
+        return $this->photo_rec;
+    }
+    
+    public function getFullImage()
+    {
         return $this->photo;
     }
     

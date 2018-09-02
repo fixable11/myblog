@@ -1,0 +1,100 @@
+.comments
+	margin-top: 40px
+	&__one
+		
+	&__amount
+		padding-left: 15px
+	&__dangerText
+		font-family: 'Open Sans', sans-serif
+.comment
+	background: #eee
+	margin: 40px 0
+	overflow: hidden
+	padding: 20px
+	padding-left: 25px
+	padding-right: 25px
+	&__descBlock
+		&::after
+			display: block
+			clear: both
+			content: ''
+	&__left
+		float: left
+		display: inline-block
+	&__right
+		font-family: 'Open Sans', sans-serif
+		margin-left: 60px
+		&::after
+			display: block
+			clear: both
+			content: ''
+	&__imgWrap
+		width: 50px
+		height: 50px
+		display: inline-block
+		overflow: hidden
+		margin-right: 10px
+	&__img
+		width: 100%
+		height: 100%
+		border-radius: 50%
+	&__user
+		width: 100%
+		position: relative
+		top: -3px
+	&__username
+		display: inline-block
+		font-weight: bold
+	&__lastName
+		font-weight: bold
+		display: inline-block
+	&__text
+		word-wrap: break-word
+		font-family: 'Open Sans', sans-serif
+		min-height: 50px
+		padding-bottom: 20px
+		//font-family: "Times New Roman", sans-serif
+	&__edit,&__cancel,&__save
+		padding: 5px
+		border: none
+		float: right
+		font-family: 'Open Sans', sans-serif
+		transition: all .3s
+		margin-top: 5px
+		&:hover
+			text-decoration: none
+	&__cancel
+		display: none
+	&__edit	
+		margin-left: 10px
+	&__save
+		margin-left: 10px
+		display: none
+	&__date
+		font-size: 14px
+		font-style: italic
+		display: inline-block
+		font-family: 'Open Sans', sans-serif
+	&__editForm
+		.help-block
+			margin-bottom: 10px
+	&__editFormWrap
+
+	&__editTextarea
+		font-family: 'Open Sans', sans-serif
+		display: none
+		width: 100%
+		min-height: 100px
+		margin-bottom: 10px
+	&__danger
+		display: none
+	&__success
+		display: none
+
+
+.button-vk
+	width: 20px
+	height: 20px
+	background-color: red
+	border-radius: 50%
+	cursor: pointer

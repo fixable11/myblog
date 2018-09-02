@@ -176,11 +176,23 @@ class SiteController extends Controller
         if(Yii::$app->request->isPost){
             $model->load(Yii::$app->request->post());
             if($model->saveComment($id)){
-                Yii::$app->getSession()->setFlash('comment', 'Your comment will be added soon');
+                //Yii::$app->getSession()->setFlash('comment', 'Your comment will be added soon');
                 return $this->redirect(['site/view', 'id' => $id]);
             }
         }
     }
     
-    
+    public function actionEditComment($id, $comment_id)
+    {
+      $model = new CommentForm();
+      if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post())) {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        if($model->validate() && $result = $model->saveEditedComment($id, $comment_id)){  
+          return $result;
+        }
+        Yii::$app->session->addFlash('error', 'Произошла ошибка при изменении комментария');
+        return false;
+      }
+    }
+
 }
