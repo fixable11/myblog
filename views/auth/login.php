@@ -6,11 +6,25 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+//use Yii;
 
 $this->title = 'Логин';
 $this->params['breadcrumbs'][] = $this->title;
+$app_id = Yii::$app->params['fb_app_id'];
+$redirect_uri = Yii::$app->params['fb_redirect_uri'];
+
+$session = Yii::$app->session;
+if(!$session->isActive){
+  $session->open();
+}
+if(!$session->has('state')){
+  $state = Yii::$app->security->generateRandomString();
+  $session->set('state', $state);
+}
+$state = $session->get('state');
+
 ?>
-<div class="login">
+<section class="login">
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
@@ -57,22 +71,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php ActiveForm::end(); ?>
       </div>
-      
-      <div class="col-lg-12">
-        <div class="login__vkWidget">
-          <script type="text/javascript" src="https://vk.com/js/api/openapi.js?158"></script>
-          <script type="text/javascript">
-            VK.init({apiId: <?= Yii::$app->params['app_id']; ?>});
-          </script>
-
-          <!-- VK Widget -->
-          <div id="vk_auth"></div>
-          <script type="text/javascript">
-            VK.Widgets.Auth("vk_auth", {"authUrl":"/auth/login-vk"});
-          </script>
+      <div class="w-100"></div>
+      <div class="col-lg-5">
+        <div class="login__bySocials loginBySocials">
+          <div class="loginBySocials__title">Войти через:</div>
+          <ul class="loginBySocials__ul">
+            <li class="loginBySocials__li">
+              <a href="https://www.facebook.com/v3.1/dialog/oauth?client_id=<?=$app_id;?>&redirect_uri=<?=$redirect_uri;?>&state=<?=$state;?>" class="loginBySocials__fb">
+                <i class="fab fa-facebook loginBySocials__fbIcon"></i>
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
-      
     </div>
   </div>
-</div>
+</section>
+

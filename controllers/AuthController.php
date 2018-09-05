@@ -10,6 +10,9 @@ use Yii;
 use yii\web\NotFoundHttpException;
 use app\models\PasswordResetRequestForm;
 use app\models\ResetPasswordForm;
+use yii\web\HttpException;
+use app\models\validate\UserLoginValidate;
+use app\models\api\FbApi;
 
 /**
  * Description of AuthController
@@ -66,19 +69,54 @@ class AuthController extends Controller
         return $this->render('register', ['model' => $model]);
     }
     
-    public function actionLoginVk($uid, $first_name, $last_name, $photo, 
-    $photo_rec, $hash)
+    public function actionLoginFb($code = null, $state = null)
     {
-        $app_id = Yii::$app->params['app_id'];
-        $secret_key = Yii::$app->params['secret_key'];
-        if($hash != md5($app_id . $uid . $secret_key)){
-          throw new NotFoundHttpException();
-        }
+      $userModelValidate = new UserLoginValidate();
+      $userModelValidate->stateValidate($state);
+      $userModelValidate->codeValidate($code);
+      
+      $token = $this->getFbUserToken($code);
+
+      if($userModelValidate->whetherUserTokenValid($token)){
+        Yii::$app->session->set('temporary_token', $token);
+        
+        $api_object = new FbApi($token);
+        $fb_data = $api_object->getFull();
+        
         $user = new User();
-        if($user->saveFromVk($uid, $first_name, $last_name, $photo, $photo_rec)){
-            return $this->redirect(['site/index']);
+        if($user->saveFromFb($fb_data)){
+           return $this->redirect(['/']);
+        } else {
+          throw new HttpException(400, 'Ошибка при входе через facebook');
         }
+      } else {
+        throw new NotFoundHttpException('Invalid user token');
+      }
+  
     }
+    
+    public function getFbUserToken($code)
+    {
+      $params = array(
+          'client_id' => $client_id = Yii::$app->params['fb_app_id'],
+          'client_secret' => Yii::$app->params['fb_secret_key'],
+          'code' => $code,
+          'redirect_uri' => Yii::$app->params['fb_redirect_uri'],
+        );
+       
+      $token = "https://graph.facebook.com/v3.1/oauth/access_token?" . http_build_query($params);
+      $token = json_decode(file_get_contents($token));
+      if(!$token){
+        throw new NotFoundHttpException('Произошла ошибка при входе через facebook!');
+      }
+      if($token->access_token){
+        $token = $token->access_token;
+      }
+      
+      return $token; 
+    }
+    
+    
     
     /**
      * Requests password reset.

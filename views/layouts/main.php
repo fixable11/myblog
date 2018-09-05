@@ -33,7 +33,7 @@ PublicAsset::register($this);
 				<div class="container">
 					<div class="row">
 						<nav class="mainHeader__nav mainHeaderNav">
-							<a class="mainHeaderNav__logoLink" href="<?= Url::home(); ?>"><img src="/images/logo.svg" alt="logo"></a>
+							<a class="mainHeaderNav__logoLink" href="<?= Url::home(); ?>"><img src="<?= Yii::getAlias('@web'); ?>/images/logo.svg" alt="logo"></a>
 							<ul class="mainHeaderNav__ul">
 								<li class="mainHeaderNav__li"><a class="mainHeaderNav__a" href="<?= Url::home(); ?>">Главная</a></li>
 								<?php if (Yii::$app->user->isGuest): ?>

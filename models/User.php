@@ -3,6 +3,9 @@
 namespace app\models;
 
 use Yii;
+use yii\web\HttpException;
+use yii\web\NotFoundHttpException;
+use app\models\validate\UserLoginValidate;
 
 /**
  * This is the model class for table "user".
@@ -210,6 +213,42 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         $this->create();
         
         return Yii::$app->user->login($this);
+    }
+    
+    
+    public function saveFromFb($fb_data)
+    {
+        $required = ['id', 'first_name', 'last_name', 'picture', 'photo_rec', 'email'];
+        if (!$this->whetherKeysMatch($fb_data, $required)) {
+          return false;
+        }
+        $userModelValidate = new UserLoginValidate();
+        $user_by_email = $userModelValidate->checkUserByEmail($fb_data['email']);
+        
+        $user_by_email->fb_uid = $fb_data['id'];
+        $user_by_email->photo = $fb_data['picture']['data']['url'];
+        $user_by_email->photo_rec = $fb_data['photo_rec']['data']['url'];
+        if(!$user_by_email->save()){
+          throw new HttpException(403, 'Ошибка при сохранении пользователя в бд.');
+        }
+        return Yii::$app->user->login($user_by_email);
+    }
+    
+    
+    /**
+     * The method compares two arrays for checking the same keys 
+     * 
+     * @param type $input_array Array to check
+     * @param type $required Array of required keys
+     * @return boolean
+     */
+    private function whetherKeysMatch($input_array, $required)
+    {
+      $count_intersect = count(array_intersect_key(array_flip($required), $input_array));
+      if($count_intersect === count($required)){
+        return true;
+      }
+      return false;
     }
     
     public function getImage()

@@ -20,7 +20,7 @@ gulp.task('browser-sync', function() {
 		notify: true,
 		logSnippet: true,
 		open: false,
-		proxy: "yiip",
+		proxy: "yiip.test",
 		// tunnel: true,
 		// tunnel: "projectname", //Demonstration page: http://projectname.localtunnel.me
 	})
