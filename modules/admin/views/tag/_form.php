@@ -8,16 +8,11 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="tag-form">
-
+<div class="tag-form tagForm">
     <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+    <?= $form->field($model, 'title')->textInput(['maxlength' => true, 'class' => 'form-control tagForm__input']) ?>
+    <div class="form-group tagForm__formGroup">
+        <?= Html::submitButton('Save', ['class' => 'btn btn-success tagForm__btnSave']) ?>
     </div>
-
     <?php ActiveForm::end(); ?>
-
 </div>

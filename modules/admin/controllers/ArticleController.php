@@ -49,7 +49,7 @@ class ArticleController extends Controller
   {
     $searchModel = new ArticleSearch();
     $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+    
     return $this->render('index', [
         'searchModel' => $searchModel,
         'dataProvider' => $dataProvider,
@@ -77,9 +77,17 @@ class ArticleController extends Controller
   public function actionCreate()
   {
     $model = new Article();
-
-    if ($model->load(Yii::$app->request->post()) && $model->saveArticle()) {
-      return $this->redirect(['view', 'id' => $model->id]);
+    $imageModel = new ImageUpload();
+    
+    if($model->load(Yii::$app->request->post())) {
+      $file = UploadedFile::getInstance($model, 'image');
+      if($file){
+        $filename = $imageModel->uploadFile($file, $model->image);
+        $model->image = $filename;
+      }
+      if($model->saveArticle()){
+        return $this->redirect(['view', 'id' => $model->id]);
+      }
     }
 
     return $this->render('create', [
@@ -97,14 +105,54 @@ class ArticleController extends Controller
   public function actionUpdate($id)
   {
     $model = $this->findModel($id);
-
-    if ($model->load(Yii::$app->request->post()) && $model->saveArticle()) {
-      return $this->redirect(['view', 'id' => $model->id]);
+    $imageModel = new ImageUpload();
+    
+    $selectedCategory = ($model->category) ? $model->category->id : '0';
+    $categories = Category::getAllCategories();
+    
+    $selectedTags = $model->getSelectedTags();
+    $tags = ArrayHelper::map(Tag::find()->all(), 'id', 'title');
+    
+    if($imageModel->fileExists($model->image)){
+      $oldImage = $model->image;
+    }
+    
+    if ($model->load(Yii::$app->request->post())) {
+      $model->category_id = Yii::$app->request->post('category');
+      $model->saveTags(Yii::$app->request->post('tags'));
+      $this->whetherChangeImage($model, $imageModel, $oldImage);
+      if($model->saveArticle()){
+        return $this->redirect(['view', 'id' => $model->id]);
+      }   
     }
 
     return $this->render('update', [
         'model' => $model,
+        'selectedCategory' => $selectedCategory,
+        'categories' => $categories,
+        'selectedTags' => $selectedTags,
+        'tags' => $tags,
     ]);
+  }
+  
+  /**
+   * Checks whether need to change current image or save previous one
+   * 
+   * @param type $model
+   * @param type $imageModel
+   * @param type $oldImage
+   */
+  private function whetherChangeImage($model, $imageModel, $oldImage)
+  {
+    $file = UploadedFile::getInstance($model, 'image');
+    if(isset($file)){
+      $filename = $imageModel->uploadFile($file, $model->image);
+    }
+    if(isset($filename)){
+      $model->image = $filename;
+    } else {
+      $model->image = $oldImage;
+    }
   }
 
   /**
@@ -135,75 +183,6 @@ class ArticleController extends Controller
     }
 
     throw new NotFoundHttpException('The requested page does not exist.');
-  }
-
-  /**
-   * Sets image for specific record
-   * 
-   * @param integer $id Article id
-   * @return mixed
-   */
-  public function actionSetImage($id)
-  {
-    $model = new ImageUpload();
-
-    if (Yii::$app->request->isPost) {
-      $article = $this->findModel($id);
-      $file = UploadedFile::getInstance($model, 'image');
-
-      if ($article->saveImage($model->uploadFile($file, $article->image))) {
-        return $this->redirect(['view', 'id' => $article->id]);
-      }
-    }
-
-    return $this->render('image', [
-        'model' => $model,
-    ]);
-  }
-
-  /**
-   * Sets category for specific Article
-   * 
-   * @param type $id Article id
-   * @return mixed View
-   */
-  public function actionSetCategory($id)
-  {
-    $article = $this->findModel($id);
-    $selectedCategory = ($article->category) ? $article->category->id : '0';
-    $categories = Category::getAllCategories();
-
-    if (Yii::$app->request->isPost) {
-      $category = Yii::$app->request->post('category');
-      if ($article->saveCategory($category)) {
-        return $this->redirect(['view', 'id' => $article->id]);
-      }
-    }
-
-    return $this->render('category', [
-        'article' => $article,
-        'selectedCategory' => $selectedCategory,
-        'categories' => $categories,
-    ]);
-  }
-
-  public function actionSetTags($id)
-  {
-    $article = $this->findModel($id);
-    $selectedTags = $article->getSelectedTags();
-    $tags = ArrayHelper::map(Tag::find()->all(), 'id', 'title');
-
-    if (Yii::$app->request->isPost) {
-      $tags = Yii::$app->request->post('tags');
-      $article->saveTags($tags);
-      return $this->redirect(['view', 'id' => $article->id]);
-    }
-
-    return $this->render('tags', [
-        'article' => $article,
-        'selectedTags' => $selectedTags,
-        'tags' => $tags,
-    ]);
   }
 
 }

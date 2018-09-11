@@ -6,6 +6,8 @@ use Yii;
 use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 use app\models\validate\UserLoginValidate;
+use yii\helpers\ArrayHelper;
+use app\models\AuthAssignment;
 
 /**
  * This is the model class for table "user".
@@ -24,6 +26,12 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     
     const ADMIN_STATUS = 1;
     const USER_STATUS = 0;
+    
+    const ROLE_ADMIN = 'admin';
+    const ROLE_MODERATOR = 'moderator';
+    const ROLE_USER = 'user';
+    
+    public $roles;
   
     /**
      * {@inheritdoc}
@@ -39,6 +47,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function rules()
     {
         return [
+            ['roles', 'safe'],
             [['isAdmin'], 'default', 'value' => self::USER_STATUS],
         ];
     }
@@ -57,6 +66,11 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             'photo' => 'Photo',
         ];
     }
+    
+    public function __construct()
+    {
+      $this->on(self::EVENT_BEFORE_UPDATE, [$this, 'saveRoles']);
+    }
 
     /**
      * @return \yii\db\ActiveQuery
@@ -65,6 +79,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return $this->hasMany(Comment::className(), ['user_id' => 'id']);
     }
+    
     
     /**
      * {@inheritdoc}
@@ -223,8 +238,10 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
           return false;
         }
         $userModelValidate = new UserLoginValidate();
-        $user_by_email = $userModelValidate->checkUserByEmail($fb_data['email']);
+        $user_by_email = $userModelValidate->returnUserByEmail($fb_data['email']);
         
+        $user_by_email->username = $fb_data['first_name'];
+        $user_by_email->last_name = $fb_data['last_name'];
         $user_by_email->fb_uid = $fb_data['id'];
         $user_by_email->photo = $fb_data['picture']['data']['url'];
         $user_by_email->photo_rec = $fb_data['photo_rec']['data']['url'];
@@ -275,6 +292,46 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         return User::findOne([
             'password_reset_token' => $token,
         ]);
+    }
+    
+    public function getRolesDropdown()
+    {
+      return [
+        self::ROLE_ADMIN => 'Admin',  
+        self::ROLE_MODERATOR => 'Moderator',  
+        self::ROLE_USER => 'User',  
+      ];
+    }
+    
+    public function saveRoles()
+    {
+      Yii::$app->authManager->revokeAll($this->getId());
+      foreach ($this->roles as $roleName){
+        if($role = Yii::$app->authManager->getRole($roleName)){
+          Yii::$app->authManager->assign($role, $this->getId());
+        }
+      }
+      
+    }
+    
+    /*
+     * Populate roles attribute with data from RBAC after record loaded from DB
+     */
+    public function afterFind()
+    {
+      parent::afterFind();
+      $this->roles = $this->getRoles();
+    }
+    
+    public function getRoles()
+    {
+      $roles = Yii::$app->authManager->getRolesByUser($this->getId());
+      return ArrayHelper::getColumn($roles, 'name', false);
+    }
+    
+    public function getRelatedRoles()
+    {
+      return $this->hasMany(AuthAssignment::className(), ['user_id' => 'id']);
     }
 
 }

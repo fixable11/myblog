@@ -25,8 +25,7 @@ class ImageUpload extends Model
     public function rules()
     {
         return [
-            [['image'], 'required'],
-            [['image'], 'file', 'extensions' => 'jpg,png'],
+            
         ];
     }
 
@@ -64,7 +63,7 @@ class ImageUpload extends Model
      */
     public function generateFilename()
     {
-        return strtolower(md5(uniqid($this->image->baseName)) . '.' . $file->extension);
+        return strtolower(md5(uniqid($this->image->baseName)) . '.' . $this->image->extension);
     }
     
     /**

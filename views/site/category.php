@@ -4,6 +4,7 @@
 
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
+use app\widgets\Sidebar;
 
 $this->title = 'My Yii Application';
 ?>

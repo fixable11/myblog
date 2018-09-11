@@ -8,10 +8,11 @@ use yii\data\ActiveDataProvider;
 use app\models\Category;
 
 /**
- * CategoryleSearch represents the model behind the search form of `app\models\Category`.
+ * CategorySearch represents the model behind the search form of `app\models\Category`.
  */
-class CategoryleSearch extends Category
+class CategorySearch extends Category
 {
+    public $title;
     /**
      * {@inheritdoc}
      */
@@ -47,6 +48,9 @@ class CategoryleSearch extends Category
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+              'pageSize' => 10,
+            ],
         ]);
 
         $this->load($params);

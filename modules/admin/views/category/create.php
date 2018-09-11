@@ -10,12 +10,11 @@ $this->title = 'Create Category';
 $this->params['breadcrumbs'][] = ['label' => 'Categories', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="category-create">
+<div class="category-create categoryCreate">
+  <h1 class="categoryCreate__title"><?= Html::encode($this->title) ?></h1>
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+  <?= $this->render('_form', [
+      'model' => $model,
+  ]) ?>
 
 </div>

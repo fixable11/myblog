@@ -10,12 +10,12 @@ $this->params['breadcrumbs'][] = ['label' => 'Tags', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
-<div class="tag-update">
+<div class="tag-update tagUpdate">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+  <h1 class="tagUpdate__title"><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+  <?= $this->render('_form', [
+      'model' => $model,
+  ]) ?>
 
 </div>

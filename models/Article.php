@@ -45,9 +45,12 @@ class Article extends \yii\db\ActiveRecord
             [['title'], 'required'],
             [['title', 'description', 'content'], 'string'],
             [['title', 'description', 'content'], 'required'],
-            [['date'], 'date', 'format' => 'php:Y-m-d H:i:s'],
+            [['date'], 'datetime', 'format' => 'php:Y-m-d H:i:s'],
             [['date'], 'default', 'value' => date('Y-m-d H:i:s')],
             [['title'], 'string', 'max' => 255],
+            ['status', 'default', 'value' => 1],
+            [['image'], 'file', 'extensions' => 'jpg,png', 'maxSize' => 1024 * 1024 * 2],
+            [['image'], 'image', 'minWidth' => 100, 'maxWidth' => 1000,'minHeight' => 100, 'maxHeight' => 1000],
         ];
     }
 
@@ -124,22 +127,12 @@ class Article extends \yii\db\ActiveRecord
         return $this->hasOne(Category::className(), ['id' => 'category_id']);
     }
     
-    public function saveCategory($category_id)
-    {
-        $category = Category::findOne($category_id);
-        if($category != null){
-            $this->link('category', $category);
-            return true;
-        }
-        
-    }
-    
     public function getTags()
     {
         return $this->hasMany(Tag::className(), ['id' => 'tag_id'])
             ->viaTable('article_tag', ['article_id' => 'id']);
     }
-    
+     
     public function getSelectedTags()
     {
         $selectedIds = $this->getTags()->select('id')->asArray()->all();
@@ -164,9 +157,13 @@ class Article extends \yii\db\ActiveRecord
         ArticleTag::deleteAll(['article_id' => $this->id]);
     }
     
-    public function getDate()
+    
+    
+    public function getDate($offset = 0)
     {
-        return Yii::$app->formatter->asDate($this->date, 'dd.MM.yyyy HH:mm:ss');
+      $timestamp = strtotime($this->date);
+      $date = $timestamp + $offset * 60 * 60;
+      return Yii::$app->formatter->asDate($date, 'dd-MM-yyyy HH:mm:ss');
     }
     
     

@@ -10,25 +10,25 @@ use yii\grid\GridView;
 $this->title = 'Tags';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="tag-index">
+<div class="tag-index tagIndex">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+  <h1 class="tagIndex__title"><?= Html::encode($this->title) ?></h1>
+  <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a('Create Tag', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+  <ul class="tagIndex__ul">
+    <li class="tagIndex__li">
+      <?= Html::a('Create Tag', ['create'], ['class' => 'btn btn-success tagIndex__link']) ?>
+    </li>
+  </ul>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'title',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+  <?= GridView::widget([
+      'dataProvider' => $dataProvider,
+      'filterModel' => $searchModel,
+      'columns' => [
+        ['class' => 'yii\grid\SerialColumn'],
+        'id',
+        'title',
+        ['class' => 'yii\grid\ActionColumn'],
+      ],
+  ]); ?>
 </div>

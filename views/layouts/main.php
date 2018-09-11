@@ -42,7 +42,7 @@ PublicAsset::register($this);
 								<?php else: ?>
 									<?= Html::beginForm(['/auth/logout'], 'post') ?>
 									<li class="mainHeaderNav__li">
-										<?= Html::submitButton('Выход (' . Yii::$app->user->identity->username . ')', ['class' => 'mainHeaderNav__a']);
+										<?= Html::submitButton('Выход (' . Yii::$app->user->identity->username . ' ' . Yii::$app->user->identity->last_name . ')', ['class' => 'mainHeaderNav__a']);
 										?>
 									</li>
 									<?= Html::endForm() ?>

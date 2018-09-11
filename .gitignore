@@ -37,3 +37,6 @@ tests/_support/_generated
 #gulp
 /gulp/node_modules
 /gulp/package-lock.json
+
+#images
+/web/uploads

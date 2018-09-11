@@ -13,6 +13,7 @@ $config = [
     'language' => 'ru',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'timeZone' => 'UTC',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -55,6 +56,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                
             ],
         ],
         
@@ -78,6 +80,9 @@ $config = [
         
         'formatter' => [
           'dateFormat' => 'dd.MM.yyyy',
+          'timeFormat' => 'H:mm:ss',
+          'datetimeFormat' => 'd.MM.yyyy H:mm:ss',
+          'defaultTimeZone' => 'UTC',
         ],
         
         'authManager' => [
@@ -88,6 +93,7 @@ $config = [
     'modules' => [
         'admin' => [
             'class' => 'app\modules\admin\Module',
+            'defaultRoute' => 'article/index',
         ],
     ],
     

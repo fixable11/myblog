@@ -10,25 +10,25 @@ use yii\grid\GridView;
 $this->title = 'Categories';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="category-index">
+<div class="category-index categoryIndex">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+  <h1 class="categoryIndex__title"><?= Html::encode($this->title) ?></h1>
+  <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a('Create Category', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+  <ul class="categoryIndex__ul">
+    <li class="categoryIndex__li">
+      <?= Html::a('Create Category', ['create'], ['class' => 'btn btn-success categoryIndex__link']) ?>
+    </li>
+  </ul>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'title',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+  <?= GridView::widget([
+      'dataProvider' => $dataProvider,
+      'filterModel' => $searchModel,
+      'columns' => [
+          ['class' => 'yii\grid\SerialColumn'],
+          'id',
+          'title',
+          ['class' => 'yii\grid\ActionColumn'],
+      ],
+  ]); ?>
 </div>

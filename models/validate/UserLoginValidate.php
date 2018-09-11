@@ -49,7 +49,7 @@ class UserLoginValidate
     }
   }
   
-  public function checkUserByEmail($email)
+  public function returnUserByEmail($email)
   {
     $user = User::findOne(['email' => $email]);
     if($user){

@@ -25,6 +25,8 @@ class Module extends \yii\base\Module
 
     // custom initialization code goes here
   }
+  
+  
 
   public function behaviors()
   {
@@ -38,14 +40,9 @@ class Module extends \yii\base\Module
             'rules' => [
                 [
                     'allow' => true,
-                    'matchCallback' => function($rule, $action)
-                    {
-                      if(isset(Yii::$app->user->identity->isAdmin)){
-                        return Yii::$app->user->identity->isAdmin;
-                      }
-                      return false;
-                    }
-                ]
+                    //'actions' => ['index', 'view', 'create', 'set-category'],
+                    'roles' => ['admin', 'moderator'],
+                ],
             ]
         ]
     ];

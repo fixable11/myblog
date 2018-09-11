@@ -66,7 +66,7 @@ gulp.task('watch', ['styles', 'js', 'browser-sync'], function() {
 	gulp.watch('../web/css/'+syntax+'/**/*.'+syntax+'', ['styles']);
 	gulp.watch(['libs/**/*.js', '../web/js/common.js'], ['js']);
 	gulp.watch('../views/**/*.php', browsersync.reload);
-	gulp.watch('../modules/**/*.php', browsersync.reload);
+	gulp.watch('../modules/**/**/*.php', browsersync.reload);
 });
 
 gulp.task('default', ['watch']);

@@ -4,6 +4,9 @@
 /* @var $articles array|ActiveQuery[] */
 
 use yii\helpers\Url;
+
+$timezoneoffset = $_COOKIE['timezoneoffset'] ?? 0;
+
 ?>
 <section class="posts">
   <?php foreach ($articles as $article): ?>
@@ -30,7 +33,7 @@ use yii\helpers\Url;
             </a>
             <div class="post__identityRight">
               <a href="<?php if(isset($article->author->email)) echo '#'; else echo 'https://vk.com/id'.$article->author->id; ?>" class="post__author"><?= $article->author->username; ?> <?= $article->author->last_name; ?></a> 
-              <span class="post__date" data-timestamp="<?= strtotime($article->getDate()); ?>"><?= $article->getDate(); ?></span>
+              <span class="post__date" data-timestamp="<?= strtotime($article->getDate()); ?>"><?= $article->getDate($timezoneoffset); ?></span>
             </div>
           </div>
           <ul class="post__socialIcons">

@@ -10,40 +10,42 @@ use yii\grid\GridView;
 $this->title = 'Articles';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="article-index">
+<section class="article-index articleIndex">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+  <h1 class="articleIndex__title"><?= Html::encode($this->title) ?></h1>
+  <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a('Create Article', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+  <div class="articleIndex__createLinkWrap">
+        <?= Html::a('Create Article', ['create'], ['class' => 'btn btn-success articleIndex__createLink']) ?>
+  </div>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'title',
-            'description:ntext',
-            'content:ntext',
-            'date',
-            [
-                'format' => 'html',
-                'label' => 'Image',
-                'value' => function($model){
-                    return Html::img($model->getImage(), ['width' => 200]);
-                }
-            ],
-            //'image',
-            //'viewed',
-            //'user_id',
-            //'status',
-            //'category_id',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-</div>
+  <?= GridView::widget([
+      'dataProvider' => $dataProvider,
+      'filterModel' => $searchModel,
+      'columns' => [
+          ['class' => 'yii\grid\SerialColumn'],
+          'id',
+          'title',
+          'description:ntext',
+          'content:ntext',
+          [
+            'format' => 'ntext',
+            'attribute' => 'date',
+            'label' => 'Date(UTC)',
+          ],
+          [
+              'format' => 'html',
+              'label' => 'Image',
+              'value' => function($model){
+                  return Html::img($model->getImage(), ['width' => 200]);
+              }
+          ],
+          //'image',
+          //'viewed',
+          //'user_id',
+          //'status',
+          //'category_id',
+          ['class' => 'yii\grid\ActionColumn'],
+      ],
+  ]); ?>
+</section>

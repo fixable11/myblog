@@ -35,8 +35,25 @@ $(document).ready(function() {
 		$($selector).html($formattedDate + ' ' + $formattedTime);
 	}
 
-	newDate('.post__date, .social__date');
+	//newDate('.post__date, .social__date');
+
+	function getCookie(name) {
+	  var matches = document.cookie.match(new RegExp(
+	    "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+	  ));
+	  return matches ? decodeURIComponent(matches[1]) : undefined;
+	}
+
+	var $cookieName = 'timezoneoffset';
+	if(!getCookie($cookieName)){
+		var date = new Date;
+		date.setDate(date.getDate() + 30);
+		alert( date.toUTCString() );
+		document.cookie = "timezoneoffset=3; path=/; expires=" + date.toUTCString();
+	}
 	
+	//setTimezoneCookie();
+
 	$('.comment__edit').on('click', function(e) {
 		//e.preventDefault();
 		$ths = $(this);
@@ -136,5 +153,6 @@ $(document).ready(function() {
  
 
 });
+
 
 	
