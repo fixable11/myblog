@@ -74,8 +74,8 @@ $config = [
             ]
         ],
         
-        'delimiter' => [
-            'class' => 'app\components\Delimiter',
+        'common' => [
+            'class' => 'app\components\Common',
         ],
         
         'formatter' => [

@@ -8,7 +8,7 @@ use Yii;
 /**
  * Component for trimming text
  */
-class Delimiter 
+class Common 
 {
   /**
    * @var int limit of characters 
@@ -40,5 +40,17 @@ class Delimiter
     $text = substr($text, 0, strrpos($text, ' '));
     $text = $text."...";
     return $text;
+  }
+  
+  /**
+   * 
+   * @param type $number
+   * @param type $titles 
+   */
+  public function ru_plural($number, $titles)
+  {
+      $cases = array (2, 0, 1, 1, 1, 2);
+      $elem = $number % 100 > 4 && $number % 100 < 20 ? 2 : $cases[min($number % 10, 5)];
+      return $titles[$elem];
   }
 }

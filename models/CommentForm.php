@@ -17,6 +17,13 @@ class CommentForm extends Model
         [['comment'], 'string', 'length' => [3, 250]],
     ];
   }
+  
+  public function attributeLabels()
+    {
+        return [
+            'comment' => 'Комментарий',
+        ];
+    }
 
   public function saveComment($article_id)
   {
@@ -29,7 +36,7 @@ class CommentForm extends Model
     return $comment->save();
   }
 
-  public function saveEditedComment($article_id, $comment_id)
+  public function saveEditedComment($comment_id)
   {
     $comment = Comment::findOne(['id' => $comment_id, 'user_id' => Yii::$app->user->id]);
     if($comment === null) {
@@ -42,6 +49,19 @@ class CommentForm extends Model
     $comment->date = date('Y-m-d');
     if($comment->save()){
       return $comment->text;
+    }
+    return false;
+  }
+  
+  public function deleteComment($comment_id)
+  {
+    $comment = Comment::findOne(['id' => $comment_id, 'user_id' => Yii::$app->user->id]);
+    if($comment === null) {
+      return false;
+    }
+
+    if($comment->delete()){
+      return ['success' => 1];
     }
     return false;
   }

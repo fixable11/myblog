@@ -23,7 +23,7 @@ $timezoneoffset = $_COOKIE['timezoneoffset'] ?? 0;
           <h2 class="h2 post__titlePost"><a class="posts__titlePostLink" href="<?= Url::toRoute(['site/view', 'id' => $article->id]); ?>"> <?= $article->title; ?></a></h2>
         </header>
         <div class="post__descBlock">
-          <p class="post__desc"><?= Yii::$app->delimiter->getShort($article->description); ?></p>
+          <p class="post__desc"><?= Yii::$app->common->getShort($article->description); ?></p>
             <a href="<?= Url::toRoute(['site/view', 'id' => $article->id]); ?>" class="post__continue">Далее</a>
         </div>
         <div class="post__social">

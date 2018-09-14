@@ -48,16 +48,44 @@ $(document).ready(function() {
 	if(!getCookie($cookieName)){
 		var date = new Date;
 		date.setDate(date.getDate() + 30);
-		alert( date.toUTCString() );
 		document.cookie = "timezoneoffset=3; path=/; expires=" + date.toUTCString();
 	}
 	
 	//setTimezoneCookie();
+	$('.comment__delete').on('click', function(event) {
+		event.stopPropagation();
+		event.preventDefault();
+		var $bool = confirm('Вы уверены, что хотите удалить этот комментарий?');
+		var $url = $(this).parent().attr('action');
+		var $ths = $(this);
+		if($bool){
+			$.ajax({
+	      url: $url,
+	      type: 'POST',
+	      dataType: 'json',
+	      //data: $data,
+	      success: function($res){
+	        if($res['success']){
+	        	$ths.closest('.col-lg-12').remove();
+	        	$('.comments__counter').text($res['amount']);
+	        	$('.comments__declension').text($res['declension']);
+	        }
+	      },
+	      error: function(){
+	 				$ths.find('.comment__danger').show(300, function(){
+						setTimeout(function() { $('.comment__danger').hide(300); }, 2500);
+					});
+				}	
+      });
+  	}
+	});
 
 	$('.comment__edit').on('click', function(e) {
 		//e.preventDefault();
-		$ths = $(this);
+		var $ths = $(this);
 		var $textarea = $ths.siblings('.comment__editForm').find('.comment__editTextarea');
+		var $form = $('.comment__editFormWrap');
+		$form.show();
 		$textarea.show();
 		var $text = $ths.siblings('.comment__text').text();
 		var $helpBlock = $ths.siblings('.comment__editForm').find('.help-block');
@@ -83,7 +111,8 @@ $(document).ready(function() {
 
 	});
 
-	$(document).mouseup(function (e) {
+
+	$(document).on('click', function (e) {
     if ($(".comments__one").has(e.target).length === 0){
         $('.comment__save').hide();
 				$('.comment__cancel').hide();
@@ -107,7 +136,6 @@ $(document).ready(function() {
       data: $data,
       success: function($res){
       	if($res){
-      		console.log($res);
       		$ths = $($ths).parent();
         	$ths.find('.comment__save').hide();
 					$ths.find('.comment__cancel').hide();
@@ -146,6 +174,31 @@ $(document).ready(function() {
       }
   	});
   	return false;
+	});
+
+	$('.singleSocial__likeUpButton, .singleSocial__likeDownButton').on('click', function(event) {
+		event.preventDefault();
+		event.stopPropagation();
+		var $url = $(this).data('href');
+		var $ths = $(this); 
+		$.ajax({
+      url: $url,
+      type: 'POST',
+      dataType: 'json',
+      //data: $data,
+      success: function($res){
+      	if($res['success']){
+      		$('.singleSocial__likeUpButton, .singleSocial__likeDownButton').children().removeClass('active');
+      		$ths.children().addClass('active');
+      		$('.singleSocial__likeUpCount').text($res['likes_amount']);
+      		$('.singleSocial__likeDownCount').text($res['dislikes_amount']);
+      	}
+      },
+      error: function(){
+
+			}
+  	});
+		
 	});
 
   

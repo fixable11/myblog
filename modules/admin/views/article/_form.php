@@ -28,6 +28,7 @@ use mihaildev\elfinder\ElFinder;
               'preset' => 'full',
               'language' => 'ru',  
               'inline' => false,
+              'tabSpaces' => 4,
           ]),
       ]);
       ?>

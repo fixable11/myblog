@@ -39,7 +39,11 @@ $this->params['breadcrumbs'][] = $this->title;
           'id',
           'title',
           'description:ntext',
-          'content:html',
+          [
+            'format' => 'html',
+            'attribute' => 'content',
+            'contentOptions' => ['class' => 'articleView__contentTd'],
+          ],
           [
             'format' => 'ntext',
             'attribute' => 'date',

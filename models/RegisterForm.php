@@ -44,6 +44,11 @@ class RegisterForm extends Model
             [['username'], 'string'],
             [['username'], 'trim'],
             [['username'], 'unique', 'targetClass' => 'app\models\User', 'targetAttribute' => 'username'],
+            [['username'], function ($attribute, $params) {
+                if (ctype_digit(substr($this->$attribute, 0, 1))) {
+                  $this->addError($attribute, 'Имя не должно начинаться с цифры');
+                }
+            }],
             [['email'], 'unique', 'targetClass' => 'app\models\User', 'targetAttribute' => 'email'],
             [['email'], 'email'],
             [['email'], 'trim'],
@@ -68,10 +73,13 @@ class RegisterForm extends Model
         $user->username = $this->username;
         $user->email = $this->email;
         $user->setPassword($this->password);
-        $user->generateAuthKey();
+        $user->generateAuthKey();        
         
         if($user->create()){
-           return Yii::$app->user->login($user, 3600*24*30);
+          $auth = Yii::$app->authManager;
+          $authorRole = $auth->getRole('user');
+          $auth->assign($authorRole, $user->getId());
+          return Yii::$app->user->login($user, 3600*24*30);
         }
         
         return null;

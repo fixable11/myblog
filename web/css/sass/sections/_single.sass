@@ -4,9 +4,8 @@
 		border: 1px solid #dee2e6
 	&__post
 		border: none
-	&__content
-		padding-left: 40px
-		padding-right: 40px
+		padding-left: 15px
+		padding-right: 15px
 	&__breadcrumbTrail
 		display: -webkit-flex
 		display: -moz-flex
@@ -27,7 +26,122 @@
 		text-transform: uppercase
 		margin-top: 20px
 		font-weight: normal
-	&__text
+	&__content
 		margin-top: 40px
 		font-family: Arial, sans-serif
 		font-size: 14px
+		p
+			text-indent: 20px
+.singleSocial
+	margin-top: 40px
+	&__shareWrap
+		border-bottom: 1px solid #dee2e6
+		padding-bottom: 10px
+		padding-left: 0
+		padding-right: 0
+	&__shareText
+		font-family: 'Open Sans', sans-serif
+		font-weight: 600
+		font-size: 16px
+	&__shareIcon
+		margin-left: 10px
+		color: #6a6161
+		font-size: 20px
+	&__ul
+		margin-top: 5px
+		display: -webkit-flex
+		display: -moz-flex
+		display: -ms-flex
+		display: -o-flex
+		display: flex
+		align-items: center
+		height: 40px
+	&__li
+		margin-right: 10px
+	&__link
+		display: -webkit-flex
+		display: -moz-flex
+		display: -ms-flex
+		display: -o-flex
+		display: flex
+		justify-content: center
+		align-items: center
+	&__fb
+	&__fbIcon
+		font-size: 35px
+		color: #4267B2
+	&__createdWrap
+		margin-top: 5px
+		font-family: 'Open Sans', sans-serif
+		&:after
+			display: block
+			content: ''
+			clear: both
+	&__authorIcon
+		display: inline-block
+		color: #868282
+	&__author
+		display: inline-block
+		margin-left: 5px
+	&__datetime
+		float: right
+	&__likesWrap
+		margin-top: 10px
+		display: -webkit-flex
+		display: -moz-flex
+		display: -ms-flex
+		display: -o-flex
+		display: flex
+	&__likeUp
+		margin-right: 5px
+		color: #b1b1b1
+		transition: all .2s
+		&.active
+			color: green
+		&:hover
+			color: green
+	&__likeUpCount
+		color: #b1b1b1
+		margin-right: 10px
+	&__likeUpButton
+		display: inline-block
+		background-color: transparent
+		border: none
+		cursor: pointer
+		padding: 0
+		padding-right: 5px
+		padding-left: 5px
+		&:focus
+			outline: none
+	&__likeDownButton
+		display: inline-block
+		background-color: transparent
+		border: none
+		cursor: pointer
+		padding: 0
+		padding-right: 5px
+		padding-left: 5px
+		&:focus
+			outline: none
+	&__likeDownCount
+		color: #b1b1b1
+		margin-right: 10px
+	&__likeDown
+		position: relative
+		top: 1px
+		margin-right: 5px
+		color: #b1b1b1
+		margin-right: 5px
+		transition: all .2s
+		&.active
+			color: red
+		&:hover
+			color: red
+	&__viewed
+		position: relative
+		top: 4px
+		font-size: 16px
+		color: #b1b1b1
+		margin-right: 5px
+	&__viewedCount
+		color: #b1b1b1
