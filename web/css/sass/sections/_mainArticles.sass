@@ -1,114 +1,177 @@
 .mainArticles
-	padding-bottom: 60px
-	border-bottom: 2px solid #dbdada
-	&__bigOne
-		
-.mainArticlesBigOne
-	margin-top: 40px
-	display: -webkit-flex
-	display: -moz-flex
-	display: -ms-flex
-	display: -o-flex
-	display: flex
-	flex-direction: column
-	border: 1px solid #ccd1d7
-	background-color: #fff
-	&__top
-		height: 325px
-		width: 100%
-		overflow: hidden
-	&__bot
-		position: relative
-		padding-left: 15px
-		padding-right: 15px
-		min-height: 350px
-		padding-bottom: 50px
-	&__title
-		margin-top: 30px
-	&__p
-		margin-top: 20px
-		font-size: 14px
-		padding-bottom: 20px
-.articleSocial_b
-	display: -webkit-flex
-	display: -moz-flex
-	display: -ms-flex
-	display: -o-flex
-	display: flex
-	position: absolute
-	width: calc(100% - 30px)
-	bottom: 10px
-	&__one
+.mainArticle
+	border: 1px solid #dee2e6
+	&_big-one
+		height: 730px
+		margin-top: 50px
+	&_small-one
+		height: 340px
+		margin-top: 50px
+		.mainArticle__imgWrap
+			height: 150px
+		.mainArticle__content
+			padding-left: 15px
+			padding-right: 15px
+			padding-bottom: 15px
+		.mainArticle__titlePost
+			margin-top: 10px
+			height: 110px
+			overflow: hidden
+			line-height: 22px
+		.mainArticle__social
+			display: -webkit-flex
+			display: -moz-flex
+			display: -ms-flex
+			display: -o-flex
+			display: flex
+			justify-content: center
+			align-items: center
+		.mainArticle__content
+			height: calc(340px - 150px)
+			overflow: hidden
+	&__imgWrap
+		height: 350px
 		display: -webkit-flex
 		display: -moz-flex
 		display: -ms-flex
 		display: -o-flex
 		display: flex
-		margin-right: 15px
-	&__icon
-		width: 30px
-		text-align: center
-	&__text
-		font-size: 12px
-		margin-left: 6px
-		line-height: 26px
-	.fa-comments, 
-	.fa-eye, 
-	.fa-arrow-circle-right
-		font-size: 14px
-		color: #a8a8a8
-
-
-.mainArticlesSmallOne
-	margin-top: 40px
-	display: -webkit-flex
-	display: -moz-flex
-	display: -ms-flex
-	display: -o-flex
-	display: flex
-	flex-direction: column
-	border: 1px solid #ccd1d7
-	background-color: #fff
-	&__top
-		height: 180px
+		justify-content: center
+		align-items: center
 		width: 100%
-		overflow: hidden
-	&__bot
 		position: relative
-		padding-left: 15px
-		padding-right: 15px
-		padding-bottom: 50px
-	&__title
-		margin-top: 20px
-		font-size: 20px
-		margin-bottom: 20px
-	
-.articleSocial_s
-	display: -webkit-flex
-	display: -moz-flex
-	display: -ms-flex
-	display: -o-flex
-	display: flex
-	width: calc(100% - 30px)
-	position: absolute
-	bottom: 10px
-	flex-wrap: wrap
-	&__one
+		border-bottom: 1px solid #f3f6fa
+		&:hover .mainArticle__overlay
+			opacity: .4
+	&__imgWrapLink
+		height: 100%
 		display: -webkit-flex
 		display: -moz-flex
 		display: -ms-flex
 		display: -o-flex
 		display: flex
-		margin-right: 15px
-	&__icon
-		width: 30px
+		justify-content: center
+		align-items: center
+	&__img
+		max-height: 100%
+		width: auto
+	&__overlay
+		background-color: #000
+		opacity: 0
+		position: absolute
+		left: 0
+		top: 0
+		transition: all .6s
+		display: block
+		width: 100%
+		height: 100%		
+	&__eye
+		position: absolute
+		top: 50%
+		left: 50%
+		transform: translate(-50%, -50%)
+		color: #cbcbcb
+		font-size: 40px
+	&__content
+		padding-left: 40px
+		padding-right: 40px
+		padding-bottom: 30px
+	&__titles
+	&__titleCategory
 		text-align: center
-	&__text
-		line-height: 26px
+		margin-top: 40px
+
+	&__titleCategoryLink
+		color: #00bff2
+	&__titlePost
+		text-align: center
+	&__titlePostLink
+		&:hover
+	&__descBlock
+	&__desc
+		margin-top: 20px
+		font-size: 16px
+		min-height: 70px
+	&__continue
+		font-size: 13px
+		letter-spacing: 1px
+		overflow: hidden
+		padding: 10px 20px
+		text-decoration: none
+		margin: 24px 0 28px
+		display: inline-block
+		color: #00BFF3
+		border: 1px solid #eee
+		-webkit-transition: all 0.5s
+		transition: all 0.5s
+		&:hover
+			background-color: #00BFF3
+			text-decoration: none
+			color: #fff
+	&__social
+		display: block
+		&::after
+			display: block
+			content: ''
+			clear: both
+	&__identity
+		float: left
+	&__identityLeft
+		display: block
+		float: left
+		width: 50px
+		height: 50px
+		text-align: center
+		line-height: 50px
+	&__identityRight
+		float: left
+		margin-left: 10px
+		width: 200px
+	&__thumbnail
+		display: inline-block
+		width: 40px
+	&__author
+		width: 100%
+		line-height: 25px
+		display: inline-block
+		font-size: 13px
+		font-weight: bold
+		color: #000
+		font-family: Arial
+	&__date
+		line-height: 25px
+		display: inline-block
+		width: 100%
 		font-size: 12px
-		margin-left: 4px
-	.fa-comments, 
-	.fa-eye, 
-	.fa-arrow-circle-right
-		font-size: 14px
-		color: #a8a8a8
+		font-family: Arial, sans-serif
+		font-style: italic
+	&__socialIcons
+		margin-top: 15px
+		float: right
+		display: -webkit-flex
+		display: -moz-flex
+		display: -ms-flex
+		display: -o-flex
+		display: flex
+	&__socialIcon
+				
+	&__socialText
+		margin-left: 5px
+		font-family: Arial, sans-serif
+	&__socialOne
+		margin-right: 10px
+		color: #b1b1b1
+		display: -webkit-flex
+		display: -moz-flex
+		display: -ms-flex
+		display: -o-flex
+		display: flex
+		justify-content: center
+		align-items: center
+		.fa,
+		.fas
+			font-size: 15px
+		.fa-thumbs-up,
+		.fa-thumbs-down
+			position: relative
+			top: -2px

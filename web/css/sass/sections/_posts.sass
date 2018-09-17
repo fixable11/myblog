@@ -4,11 +4,31 @@
 .post 
 	border: 1px solid #dee2e6
 	&__imgWrap
+		height: 350px
+		display: -webkit-flex
+		display: -moz-flex
+		display: -ms-flex
+		display: -o-flex
+		display: flex
+		justify-content: center
+		align-items: center
 		width: 100%
 		position: relative
+		border-bottom: 1px solid #f3f6fa
 		&:hover .post__overlay
 			opacity: .4
+	&__imgWrapLink
+		height: 100%
+		display: -webkit-flex
+		display: -moz-flex
+		display: -ms-flex
+		display: -o-flex
+		display: flex
+		justify-content: center
+		align-items: center
 	&__img
+		max-height: 100%
+		width: auto
 	&__overlay
 		background-color: #000
 		opacity: 0
@@ -105,15 +125,28 @@
 		display: -ms-flex
 		display: -o-flex
 		display: flex
+	&__socialIcon
+				
 	&__socialText
 		margin-left: 5px
 		font-family: Arial, sans-serif
 	&__socialOne
 		margin-right: 10px
-	&__socialLink
-		.fa-comments,
-		.fa-eye
+		color: #b1b1b1
+		display: -webkit-flex
+		display: -moz-flex
+		display: -ms-flex
+		display: -o-flex
+		display: flex
+		justify-content: center
+		align-items: center
+		.fa,
+		.fas
 			font-size: 15px
+		.fa-thumbs-up,
+		.fa-thumbs-down
+			position: relative
+			top: -2px
 			
 
 

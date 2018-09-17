@@ -44,7 +44,7 @@ $state = $session->get('state');
                 <div class="comment__descBlock">
                   <div class="comment__left">
                     <div class="comment__imgWrap">
-                      <img class="comment__img" src="<?php if ($comment->user->image) echo $comment->user->image; else echo Yii::getAlias('@web') . '/images/default-user.png'; ?>" alt="image">
+                      <img class="comment__img" src="<?= $comment->user->image ?>" alt="image">
                     </div>
                   </div>
                   <div class="comment__right">

@@ -201,9 +201,18 @@ $(document).ready(function() {
 		
 	});
 
-  
+	//=====WIDGET======//
+	
+	function sidebarHandler(x){
+		// var sidebar = new Ownsidebar();
+		// if(!x.mathes){
+		// 	delete sidebar;
+		// }
+	}
+	var x = window.matchMedia("(max-width: 992px)").addListener(sidebarHandler);
 
- 
+
+	
 
 });
 

@@ -74,7 +74,8 @@ $this->title = $article->title;
           'popular' => $popular,
           'recent' => $recent,
           'categories' => $categories,
-          'subModel' => $subModel
+          'subModel' => $subModel,
+          'tags' => $tags,
         ]);
         ?>
       </div>

@@ -77,15 +77,14 @@ class ArticleController extends Controller
   public function actionCreate()
   {
     $model = new Article();
-    $imageModel = new ImageUpload();
-    
+    $imageModel = new ImageUpload($model);
     if($model->load(Yii::$app->request->post())) {
       $file = UploadedFile::getInstance($model, 'image');
-      if($file){
-        $filename = $imageModel->uploadFile($file, $model->image);
-        $model->image = $filename;
-      }
       if($model->saveArticle()){
+        if($file){
+          $imageModel->uploadFile($file);
+          //$model->image = $filename;
+        }
         return $this->redirect(['view', 'id' => $model->id]);
       }
     }
@@ -105,7 +104,7 @@ class ArticleController extends Controller
   public function actionUpdate($id)
   {
     $model = $this->findModel($id);
-    $imageModel = new ImageUpload();
+    $imageModel = new ImageUpload($model);
     
     $selectedCategory = ($model->category) ? $model->category->id : '0';
     $categories = Category::getAllCategories();
@@ -113,14 +112,10 @@ class ArticleController extends Controller
     $selectedTags = $model->getSelectedTags();
     $tags = ArrayHelper::map(Tag::find()->all(), 'id', 'title');
     
-    if($imageModel->fileExists($model->image)){
-      $oldImage = $model->image;
-    }
-    
     if ($model->load(Yii::$app->request->post())) {
       $model->category_id = Yii::$app->request->post('category');
       $model->saveTags(Yii::$app->request->post('tags'));
-      $this->whetherChangeImage($model, $imageModel, $oldImage);
+      $this->whetherChangeImage($model, $imageModel);
       if($model->saveArticle()){
         return $this->redirect(['view', 'id' => $model->id]);
       }   
@@ -142,16 +137,11 @@ class ArticleController extends Controller
    * @param type $imageModel
    * @param type $oldImage
    */
-  private function whetherChangeImage($model, $imageModel, $oldImage)
+  private function whetherChangeImage($model, $imageModel)
   {
     $file = UploadedFile::getInstance($model, 'image');
     if(isset($file)){
-      $filename = $imageModel->uploadFile($file, $model->image);
-    }
-    if(isset($filename)){
-      $model->image = $filename;
-    } else {
-      $model->image = $oldImage;
+      $imageModel->uploadFile($file);
     }
   }
 

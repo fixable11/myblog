@@ -21,7 +21,7 @@ $this->title = 'Treasure main page';
         </div>
       <?php endif; ?>
       <div class="col-lg-12">
-        <?= $this->render('@app/views/particles/mainArticles'); ?>  
+        <?= $this->render('@app/views/particles/mainArticles', ['popular' => $popular]); ?>  
       </div>
     </div>
     <div class="row">
@@ -42,7 +42,8 @@ $this->title = 'Treasure main page';
           'popular' => $popular,
           'recent' => $recent,
           'categories' => $categories,
-          'subModel' => $subModel
+          'subModel' => $subModel,
+          'tags' => $tags,
         ]);
         ?>
       </div>

@@ -16,15 +16,8 @@ class PublicAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         //'css/bootstrap.min.css',
-        'css/font-awesome.min.css',
-        'css/animate.min.css',
-        'css/owl.carousel.css',
-        'css/owl.theme.css',
-        'css/owl.transitions.css',
         'css/style.css',
-        'css/responsive.css',
         'css/mystyle.min.css',
-        'css/normalize.min.css'
     ];
     public $js = [
         'js/fontawesome/all.min.js',

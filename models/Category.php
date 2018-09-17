@@ -63,25 +63,37 @@ class Category extends \yii\db\ActiveRecord
         return Category::find()->all();
     }
     
+    public static function getCategoryName($id)
+    {
+      if(!intval($id)){
+        throw new \yii\web\NotFoundHttpException();
+      }
+      return Category::find()->where(['id' => $id])->one()->title;
+
+    }
+    
     public static function getArticlesByCategory($id, $pageSize = null)
     {
-        if(is_null($pageSize)){
-            $pageSize = Yii::$app->params['pageDefaultSize'];
-        }
-        $query = Article::find()->where(['category_id' => $id]);
-        $count = $query->count();
-        $pagination = new Pagination([
-            'totalCount' => $count, 
-            'pageSize' => $pageSize
-        ]);
-        
-        $articles = $query->offset($pagination->offset)
-        ->limit($pagination->limit)
-        ->all();
-        
-        $data['articles'] = $articles;
-        $data['pagination'] = $pagination;
-        
-        return $data;
+      if(is_null($pageSize)){
+          $pageSize = Yii::$app->params['pageDefaultSize'];
+      }
+      $query = Article::find()->where(['category_id' => $id]);
+      $count = $query->count();
+      $pagination = new Pagination([
+          'totalCount' => $count, 
+          'pageSize' => $pageSize
+      ]);
+
+      $articles = $query->offset($pagination->offset)
+      ->limit($pagination->limit)
+      ->all();
+
+      $categoryName = Category::getCategoryName($id);
+
+      $data['articles'] = $articles;
+      $data['pagination'] = $pagination;
+      $data['categoryName'] = $categoryName;
+
+      return $data;
     }
 }

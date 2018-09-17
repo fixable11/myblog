@@ -56,7 +56,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                
+                'site/tags/<tag>' => 'site/tags',
             ],
         ],
         

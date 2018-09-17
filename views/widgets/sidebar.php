@@ -12,30 +12,30 @@ use yii\helpers\Html;
 ?>
 
 <div class="primarySidebar">
-  <aside class="widget">
+  <aside class="widget primarySidebar__subscribeWidget">
     <div class="row">
       <div class="col-lg-12">
-        <div class="primarySidebar__subsribe subscribe">
-          <h5 class="subscribe__title h5">Подписка</h5>
+        <div class="primarySidebar__subsribe subscribeWidget">
+          <h5 class="subscribeWidget__title h5">Подписка</h5>
           <?php $form = ActiveForm::begin([
-              'options' => ['class' => 'subscribe__form']
+              'options' => ['class' => 'subscribeWidget__form']
             ]) ?>
-          <?= $form->field($subModel, 'name')->textInput(['placeholder' => "Введите ваше имя!", 'class' => 'form-control subscribe__inputName'])->label('Имя:'); ?>
-          <?= $form->field($subModel, 'email')->textInput(['placeholder' => "Введите ваш email!", 'class' => 'form-control subscribe__inputEmail'])->label('Email'); ?>
-          <?= Html::submitButton('Подписаться', ['class' => 'btn subscribe__btn']) ?>
+          <?= $form->field($subModel, 'name')->textInput(['placeholder' => "Введите ваше имя!", 'class' => 'form-control subscribeWidget__inputName'])->label('Имя:'); ?>
+          <?= $form->field($subModel, 'email')->textInput(['placeholder' => "Введите ваш email!", 'class' => 'form-control subscribeWidget__inputEmail'])->label('Email'); ?>
+          <?= Html::submitButton('Подписаться', ['class' => 'btn subscribeWidget__btn']) ?>
           <?php ActiveForm::end() ?>
         </div>
       </div>
     </div>
   </aside>
-  <aside class="widget">
+  <aside class="widget primarySidebar__freshRecordsWidget">
     <div class="row"> 
       <div class="col-lg-12">
-        <div class="freshRecords">
-          <h3 class="freshRecords__title h5">Свежие записи</h3>
-          <ul class="freshRecords__ul">
-            <?php foreach ($popular as $article): ?>
-              <li class="freshRecords__one">
+        <div class="freshRecordsWidget">
+          <h3 class="freshRecordsWidget__title h5">Свежие записи</h3>
+          <ul class="freshRecordsWidget__ul">
+            <?php foreach ($recent as $article): ?>
+              <li class="freshRecordsWidget__one">
                 <a href="<?= Url::toRoute(['site/view', 'id' => $article->id]); ?>" class="freshRecords__link"><?= $article->title; ?></a>
               </li>
             <?php endforeach; ?>
@@ -44,18 +44,18 @@ use yii\helpers\Html;
       </div>
     </div>
   </aside>
-  <aside class="widget">
+  <aside class="widget primarySidebar__categoriesWidget">
     <div class="row">
       <div class="col-lg-12">
-        <div class="categories">
-          <h3 class="categories__title h5">Категории</h3>
-          <ul class="categories__ul">
+        <div class="categoriesWidget">
+          <h3 class="categoriesWidget__title h5">Категории</h3>
+          <ul class="categoriesWidget__ul">
             <?php $cnt = count($categories); $i = 0; ?>
             <?php foreach ($categories as $category): ?>
-              <li class="categories__one">
-                <a href="<?= Url::toRoute(['site/category', 'id' => $category->id]); ?>" class="categories__link"><?= $category->title; ?> (<?= $category->getArticlesCount(); ?>)</a>
+              <li class="categoriesWidget__one">
+                <a href="<?= Url::toRoute(['site/category', 'id' => $category->id]); ?>" class="categoriesWidget__link"><?= $category->title; ?> (<?= $category->getArticlesCount(); ?>)</a>
                 <?php if($i != $cnt - 1): ?> 
-                  <span class="categories__span">,</span>
+                  <span class="categoriesWidget__span">,</span>
                 <?php endif; ?>
               </li>
               <?php $i++; ?>
@@ -65,15 +65,15 @@ use yii\helpers\Html;
       </div>
     </div>
   </aside>
-  <aside class="widget">
+  <aside class="widget primarySidebar__tagsWidget">
     <div class="row">
       <div class="col-lg-12">
         <div class="tagsWidget">
           <h3 class="tagsWidget__title h5">Теги</h3>
           <ul class="tagsWidget__ul">
-            <?php foreach ($categories as $category): ?>
+            <?php foreach ($tags as $tag): ?>
               <li class="tagsWidget__one">
-                <a href="<?= Url::toRoute(['site/category', 'id' => $category->id]); ?>" class="tagsWidget__link"><?= $category->title; ?></a>
+                <a href="<?= Url::toRoute(['site/tags/' . $tag->title]); ?>" class="tagsWidget__link"><?= $tag->title; ?></a>
               </li>
             <?php endforeach; ?>
           </ul>

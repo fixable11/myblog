@@ -53,4 +53,5 @@ class Common
       $elem = $number % 100 > 4 && $number % 100 < 20 ? 2 : $cases[min($number % 10, 5)];
       return $titles[$elem];
   }
+  
 }

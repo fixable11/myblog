@@ -10,38 +10,51 @@ class Sidebar extends \yii\bootstrap\Widget
     /**
      * @var array|ActiveQuery[] the popular articles by amount of view.
      */
-    public $popular;
+    public $popular = null;
     
     /**
      * @var array|ActiveQuery[] the recent articles by added date.
      */
-    public $recent;
+    public $recent = null;
     
     /**
      * @var array|ActiveQuery[] the all existing categories.
      */
-    public $categories;
+    public $categories = null;
     
     /**
      * @var app/models/SubscribeForm the model for subscribe functionality
      */
-    public $subModel;
+    public $subModel = null;
+    
+    /**
+     * @var 
+     */
+    public $tags = null;
 
     /**
      * {@inheritdoc}
      */
     public function run()
     {
-        if(isset($this->popular) 
-        && isset($this->recent) 
-        && isset($this->categories) 
-        && isset($this->subModel)){
-            return $this->render('/widgets/sidebar', [
-               'popular' => $this->popular,
-               'recent' => $this->recent,
-               'categories' => $this->categories,
-               'subModel' => $this->subModel,
-           ]);
-        }
+
+      $array = [];
+      if(isset($this->popular)){
+        $array['popular'] = $this->popular;
+      }
+      if(isset($this->recent)){
+        $array['recent'] = $this->recent;
+      }
+      if(isset($this->categories)){
+        $array['categories'] = $this->categories;
+      }
+      if(isset($this->subModel)){
+        $array['subModel'] = $this->subModel;
+      }
+      if(isset($this->tags)){
+        $array['tags'] = $this->tags;
+      }
+        
+      return $this->render('/widgets/sidebar', $array);
     }
 }

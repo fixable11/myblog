@@ -85,4 +85,24 @@ class Likes extends \yii\db\ActiveRecord
       }
       return false;
     }
+    
+    public function doLike()
+    {
+      $model = new Likes(); 
+      $model->article_id = $this->id;
+      $model->user_id = Yii::$app->user->id;
+      $model->liked = 1;
+      $model->disliked = 0;
+      return $model->save();
+    }
+
+    public function doDislike()
+    {
+      $model = new Likes(); 
+      $model->article_id = $this->id;
+      $model->user_id = Yii::$app->user->id;
+      $model->liked = 0;
+      $model->disliked = 1;
+      return $model->save();
+    }
 }

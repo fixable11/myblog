@@ -17,10 +17,12 @@ use app\models\Likes;
 use app\models\CommentForm;
 use app\models\SubscribeForm;
 use yii\web\NotFoundHttpException;
+use app\models\Tag;
 
 class SiteController extends Controller
 {
 
+  const ARTICLES_PER_PAGE = 4;
   /**
    * {@inheritdoc}
    */
@@ -70,11 +72,12 @@ class SiteController extends Controller
    */
   public function actionIndex()
   {
-    $data = Article::getAll(2);
-    $popular = Article::getPopular();
+    $data = Article::getAll(self::ARTICLES_PER_PAGE, Yii::$app->params['popularLimit']);
+    $popular = Article::getPopular(Yii::$app->params['popularLimit']);
     $recent = Article::getRecent();
     $categories = Category::getAll();
-
+    $tags = Tag::getAllTags();
+    
     $subModel = new SubscribeForm();
 
     return $this->render('index', [
@@ -84,6 +87,7 @@ class SiteController extends Controller
         'recent' => $recent,
         'categories' => $categories,
         'subModel' => $subModel,
+        'tags' => $tags,
     ]);
   }
 
@@ -105,15 +109,6 @@ class SiteController extends Controller
     ]);
   }
 
-  /**
-   * Displays about page.
-   *
-   * @return string
-   */
-  public function actionAbout()
-  {
-    return $this->render('about');
-  }
 
   /**
    * Displays single page.
@@ -132,32 +127,41 @@ class SiteController extends Controller
    */
   public function actionCategory($id, $pageSize = null)
   {
-    if (is_null($pageSize)) {
-      $pageSize = Yii::$app->params['pageDefaultSize'];
-    }
-    $data = Category::getArticlesByCategory($id);
-    $popular = Article::getPopular();
+    $data = Category::getArticlesByCategory($id, $pageSize);
     $recent = Article::getRecent();
     $categories = Category::getAll();
+    $subModel = new SubscribeForm();
+    $tags = Tag::getAllTags();
 
     return $this->render('category', [
         'articles' => $data['articles'],
         'pagination' => $data['pagination'],
-        'popular' => $popular,
+        'categoryName' => $data['categoryName'],
         'recent' => $recent,
         'categories' => $categories,
+        'subModel' => $subModel,
+        'tags' => $tags,
     ]);
+  }
+  
+  public function actionTags($tag, $pageSize = null)
+  {
+    if (is_null($pageSize)) {
+      $pageSize = Yii::$app->params['pageDefaultSize'];
+    }
+    $data = Tag::getTagsByTitle($tag);
   }
 
   public function actionView($id)
   {
     $article = Article::findOne($id);
-    $popular = Article::getPopular();
+    $popular = Article::getPopular(Yii::$app->params['popularLimit']);
     $recent = Article::getRecent();
     $categories = Category::getAll();
     $comments = $article->getArticleComments(); //return comments with status 1
     $commentForm = new CommentForm();
     $subModel = new SubscribeForm();
+    $tags = Tag::getAllTags();
 
     $article->viewedCounter();
 
@@ -169,6 +173,7 @@ class SiteController extends Controller
         'comments' => $comments,
         'commentForm' => $commentForm,
         'subModel' => $subModel,
+        'tags' => $tags,
     ]);
   }
 
