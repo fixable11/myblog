@@ -9,7 +9,10 @@ class CommentForm extends Model
 {
 
   public $comment;
-
+  
+  /**
+   * {@inheritdoc}
+   */
   public function rules()
   {
     return [
@@ -18,6 +21,9 @@ class CommentForm extends Model
     ];
   }
   
+  /**
+   * {@inheritdoc}
+   */
   public function attributeLabels()
     {
         return [
@@ -25,6 +31,12 @@ class CommentForm extends Model
         ];
     }
 
+  /**
+   * Saves comment
+   * 
+   * @param type $article_id Article id
+   * @return boolean Whether the save successful
+   */
   public function saveComment($article_id)
   {
     $comment = new Comment();
@@ -35,7 +47,13 @@ class CommentForm extends Model
     $comment->date = date('Y-m-d');
     return $comment->save();
   }
-
+  
+  /**
+   * Saves comment that has been edited
+   * 
+   * @param type $comment_id Comment id
+   * @return boolean | string Whether the save successful
+   */
   public function saveEditedComment($comment_id)
   {
     $comment = Comment::findOne(['id' => $comment_id, 'user_id' => Yii::$app->user->id]);
@@ -53,6 +71,12 @@ class CommentForm extends Model
     return false;
   }
   
+  /**
+   * Deletes comment by its id
+   * 
+   * @param type $comment_id Comment id
+   * @return boolean | array Whether the delete was successful
+   */
   public function deleteComment($comment_id)
   {
     $comment = Comment::findOne(['id' => $comment_id, 'user_id' => Yii::$app->user->id]);

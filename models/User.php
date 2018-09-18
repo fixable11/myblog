@@ -77,7 +77,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      */
     public function getComments()
     {
-        return $this->hasMany(Comment::className(), ['user_id' => 'id']);
+      return $this->hasMany(Comment::className(), ['user_id' => 'id']);
     }
     
     
@@ -86,7 +86,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      */
     public static function findIdentity($id)
     {
-        return User::findOne($id);
+      return User::findOne($id);
     }
 
     /**
@@ -105,7 +105,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      */
     public static function findByEmail($email)
     {
-        return User::find()->where(['email' => $email])->one();
+      return User::find()->where(['email' => $email])->one();
     }
 
     /**
@@ -113,7 +113,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      */
     public function getId()
     {
-        return $this->id;
+      return $this->id;
     }
 
     /**
@@ -121,7 +121,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      */
     public function getAuthKey()
     {
-        return $this->auth_key;
+      return $this->auth_key;
     }
 
     /**
@@ -129,7 +129,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      */
     public function validateAuthKey($authKey)
     {
-        return $this->getAuthKey() === $authKey;
+      return $this->getAuthKey() === $authKey;
     }
   
     /**
@@ -139,7 +139,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      */
     public function create()
     {
-        return $this->save();
+      return $this->save();
     }
     
     /**
@@ -150,7 +150,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      */
     public function validatePassword($password)
     {
-        return Yii::$app->security->validatePassword($password, $this->password);
+      return Yii::$app->security->validatePassword($password, $this->password);
     }
     
     /**
@@ -160,7 +160,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      */
     public function setPassword($password)
     {
-        $this->password = Yii::$app->security->generatePasswordHash($password);
+      $this->password = Yii::$app->security->generatePasswordHash($password);
     }
     
     /**
@@ -168,7 +168,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      */
     public function generateAuthKey()
     {
-        $this->auth_key = Yii::$app->security->generateRandomString();
+      $this->auth_key = Yii::$app->security->generateRandomString();
     }
     
     /**
@@ -176,7 +176,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      */
     public function generatePasswordResetToken()
     {
-        $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
+      $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
     }
     
     /**
@@ -187,12 +187,12 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      */
     public static function isPasswordResetTokenValid($token)
     {
-        if (empty($token)) {
-            return false;
-        }
-        $timestamp = (int) substr($token, strrpos($token, '_') + 1);
-        $expire = Yii::$app->params['user.passwordResetTokenExpire'];
-        return $timestamp + $expire >= time();
+      if (empty($token)) {
+          return false;
+      }
+      $timestamp = (int) substr($token, strrpos($token, '_') + 1);
+      $expire = Yii::$app->params['user.passwordResetTokenExpire'];
+      return $timestamp + $expire >= time();
     }
     
     /**
@@ -200,55 +200,27 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      */
     public function removePasswordResetToken()
     {
-        $this->password_reset_token = null;
+      $this->password_reset_token = null;
     }
-    
-    /**
-     * Fills the attributes with an appropriate values
-     * 
-     * @param int $uid
-     * @param string $name
-     * @param string $last_name
-     * @param string $photo
-     * @param string $photo_rec
-     * @return bool Whether the user is logged in successful
-     */
-    public function saveFromVk($uid, $name, $last_name, $photo, $photo_rec)
-    {
-        $user = User::findOne($uid);
-        
-        if($user){
-            return Yii::$app->user->login($user);
-        }
-        $this->id = $uid;
-        $this->username = $name;
-        $this->last_name = $last_name;
-        $this->photo = $photo;
-        $this->photo_rec = $photo_rec;
-        $this->create();
-        
-        return Yii::$app->user->login($this);
-    }
-    
-    
+       
     public function saveFromFb($fb_data)
     {
-        $required = ['id', 'first_name', 'last_name', 'picture', 'photo_rec', 'email'];
-        if (!$this->whetherKeysMatch($fb_data, $required)) {
-          return false;
-        }
-        $userModelValidate = new UserLoginValidate();
-        $user_by_email = $userModelValidate->returnUserByEmail($fb_data['email']);
-        
-        $user_by_email->username = $fb_data['first_name'];
-        $user_by_email->last_name = $fb_data['last_name'];
-        $user_by_email->fb_uid = $fb_data['id'];
-        $user_by_email->photo = $fb_data['picture']['data']['url'];
-        $user_by_email->photo_rec = $fb_data['photo_rec']['data']['url'];
-        if(!$user_by_email->save()){
-          throw new HttpException(403, 'Ошибка при сохранении пользователя в бд.');
-        }
-        return Yii::$app->user->login($user_by_email);
+      $required = ['id', 'first_name', 'last_name', 'picture', 'photo_rec', 'email'];
+      if (!$this->whetherKeysMatch($fb_data, $required)) {
+        return false;
+      }
+      $userModelValidate = new UserLoginValidate();
+      $user_by_email = $userModelValidate->returnUserByEmail($fb_data['email']);
+
+      $user_by_email->username = $fb_data['first_name'];
+      $user_by_email->last_name = $fb_data['last_name'];
+      $user_by_email->fb_uid = $fb_data['id'];
+      $user_by_email->photo = $fb_data['picture']['data']['url'];
+      $user_by_email->photo_rec = $fb_data['photo_rec']['data']['url'];
+      if(!$user_by_email->save()){
+        throw new HttpException(403, 'Ошибка при сохранении пользователя в бд.');
+      }
+      return Yii::$app->user->login($user_by_email);
     }
     
     
@@ -268,17 +240,27 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
       return false;
     }
     
+    /**
+     * Gets small user's image
+     * 
+     * @return string Returns user's image or default image
+     */
     public function getImage()
     {
       if($this->photo_rec){
         return $this->photo_rec;
       }  
-      return '/images/default-user.png';
+      return '/' . Yii::$app->params['images_folder'] . '/default-user.png';
     }
     
+    /**
+     * Gets full user's image
+     * 
+     * @return string Returns user's full image
+     */
     public function getFullImage()
     {
-        return $this->photo;
+      return $this->photo;
     }
     
     /**
@@ -289,14 +271,19 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      */
     public static function findByPasswordResetToken($token)
     {
-        if (!static::isPasswordResetTokenValid($token)) {
-            return null;
-        }
-        return User::findOne([
-            'password_reset_token' => $token,
-        ]);
+      if (!static::isPasswordResetTokenValid($token)) {
+          return null;
+      }
+      return User::findOne([
+          'password_reset_token' => $token,
+      ]);
     }
     
+    /**
+     * Gets all existing roles in an array
+     * 
+     * @return type
+     */
     public function getRolesDropdown()
     {
       return [
@@ -306,6 +293,9 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
       ];
     }
     
+    /**
+     * Saves roles before update
+     */
     public function saveRoles()
     {
       Yii::$app->authManager->revokeAll($this->getId());
@@ -326,12 +316,22 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
       $this->roles = $this->getRoles();
     }
     
+    /**
+     * Returns user's roles that have been assigned to it
+     * 
+     * @return array
+     */
     public function getRoles()
     {
       $roles = Yii::$app->authManager->getRolesByUser($this->getId());
       return ArrayHelper::getColumn($roles, 'name', false);
     }
     
+    /**Relation links user by user_id with 'auth_assignment' table
+     * 
+     * 
+     * @return ActiveQuery
+     */
     public function getRelatedRoles()
     {
       return $this->hasMany(AuthAssignment::className(), ['user_id' => 'id']);

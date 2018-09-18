@@ -63,6 +63,7 @@ class LoginForm extends Model
 
     /**
      * Logs in a user using the provided email and password.
+     * 
      * @return bool whether the user is logged in successfully
      */
     public function login()
@@ -74,7 +75,7 @@ class LoginForm extends Model
     }
 
     /**
-     * Finds user by [[email]]
+     * Finds user by email
      *
      * @return User|null
      */

@@ -9,8 +9,6 @@ use Yii;
 
 /**
  * Uploads images to the Article model 
- *
- * @author Никита
  */
 class ImageUpload extends Model
 {

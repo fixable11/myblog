@@ -14,7 +14,13 @@ use yii\web\NotFoundHttpException;
 class UserLoginValidate
 {
   
-  
+  /**
+   * It checks whether user's token valid
+   * 
+   * @param string $user_token user's token
+   * @return bool
+   * @throws NotFoundHttpException
+   */
   public function whetherUserTokenValid($user_token)
   {
     $params = array(
@@ -30,6 +36,12 @@ class UserLoginValidate
     }
   }
   
+  /**
+   * It checks whether user's authentication code valid
+   * 
+   * @param type $state Session state
+   * @throws NotFoundHttpException
+   */
   public function stateValidate($state)
   {
     $session = Yii::$app->session;
@@ -42,6 +54,12 @@ class UserLoginValidate
     }
   }
   
+  /**
+   * Checks whether exists code for retrieving access token
+   * 
+   * @param type $code Code that has been returned by facebook
+   * @throws HttpException
+   */
   public function codeValidate($code)
   {
     if(!isset($code)){
@@ -49,6 +67,13 @@ class UserLoginValidate
     }
   }
   
+  /**
+   * Checks whether user has already registered
+   * 
+   * @param type $email User's email
+   * @return yii\db\ActiveRecord $user User's model
+   * @throws NotFoundHttpException
+   */
   public function returnUserByEmail($email)
   {
     $user = User::findOne(['email' => $email]);
@@ -60,5 +85,4 @@ class UserLoginValidate
     }
   }
   
-    
 }

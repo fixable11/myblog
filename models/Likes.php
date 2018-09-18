@@ -53,6 +53,8 @@ class Likes extends \yii\db\ActiveRecord
     }
 
     /**
+     * Article table relation
+     * 
      * @return \yii\db\ActiveQuery
      */
     public function getArticle()
@@ -61,6 +63,8 @@ class Likes extends \yii\db\ActiveRecord
     }
 
     /**
+     * User table relation
+     * 
      * @return \yii\db\ActiveQuery
      */
     public function getUser()
@@ -68,6 +72,12 @@ class Likes extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
     
+    /**
+     * Checks whether user liked specific article
+     * 
+     * @param type $article_id Article id
+     * @return boolean
+     */
     public static function whetherUserLiked($article_id)
     {
       $model = Likes::findOne(['article_id' => $article_id, 'user_id' => Yii::$app->user->id]);
@@ -77,6 +87,12 @@ class Likes extends \yii\db\ActiveRecord
       return false;
     }
     
+    /**
+     * Checks whether user liked disliked article
+     * 
+     * @param type $article_id Article id
+     * @return boolean
+     */
     public static function whetherUserDisliked($article_id)
     {
       $model = Likes::findOne(['article_id' => $article_id, 'user_id' => Yii::$app->user->id]);
@@ -86,6 +102,11 @@ class Likes extends \yii\db\ActiveRecord
       return false;
     }
     
+    /**
+     * Sets 'liked' column for specific user 
+     * 
+     * @return boolean Whether saved has been successful
+     */
     public function doLike()
     {
       $model = new Likes(); 
@@ -95,7 +116,12 @@ class Likes extends \yii\db\ActiveRecord
       $model->disliked = 0;
       return $model->save();
     }
-
+    
+    /**
+     * Sets 'disliked' column for specific user 
+     * 
+     * @return boolean Whether saved has been successful
+     */
     public function doDislike()
     {
       $model = new Likes(); 

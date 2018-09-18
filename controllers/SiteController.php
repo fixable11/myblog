@@ -23,6 +23,7 @@ class SiteController extends Controller
 {
 
   const ARTICLES_PER_PAGE = 4;
+
   /**
    * {@inheritdoc}
    */
@@ -77,7 +78,7 @@ class SiteController extends Controller
     $recent = Article::getRecent();
     $categories = Category::getAll();
     $tags = Tag::getAllTags();
-    
+
     $subModel = new SubscribeForm();
 
     return $this->render('index', [
@@ -109,21 +110,12 @@ class SiteController extends Controller
     ]);
   }
 
-
   /**
-   * Displays single page.
+   * Displays category page. Searching by category
    *
-   * @return string
-   */
-  public function actionSingle()
-  {
-    return $this->render('single');
-  }
-
-  /**
-   * Displays category page.
-   *
-   * @return string
+   * @param int $id Category id
+   * @param int $pageSize Articles per page
+   * @return string The rendering result
    */
   public function actionCategory($id, $pageSize = null)
   {
@@ -144,14 +136,42 @@ class SiteController extends Controller
     ]);
   }
   
+  /**
+   * Displays tag page. Searching by tag
+   * 
+   * @param int $tag Tag title
+   * @param int $pageSize Articles per page
+   * @return string The rendering result
+   */
   public function actionTags($tag, $pageSize = null)
   {
     if (is_null($pageSize)) {
       $pageSize = Yii::$app->params['pageDefaultSize'];
     }
-    $data = Tag::getTagsByTitle($tag);
+    
+    $data = Tag::getArticlesByTagTitle($tag);
+    $recent = Article::getRecent();
+    $categories = Category::getAll();
+    $subModel = new SubscribeForm();
+    $tags = Tag::getAllTags();
+    
+    return $this->render('tags', [
+        'articles' => $data['articles'],
+        'pagination' => $data['pagination'],
+        'tagName' => $data['tag_name'],
+        'recent' => $recent,
+        'categories' => $categories,
+        'subModel' => $subModel,
+        'tags' => $tags,
+    ]);
   }
 
+  /**
+   * Displays article page
+   * 
+   * @param type $id Article id
+   * @return string The rendering result
+   */
   public function actionView($id)
   {
     $article = Article::findOne($id);

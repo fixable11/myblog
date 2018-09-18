@@ -3,23 +3,21 @@
 namespace app\controllers;
 
 use Yii;
-use yii\filters\AccessControl;
 use yii\web\Controller;
-use yii\web\Response;
-use yii\filters\VerbFilter;
-use app\models\LoginForm;
-use app\models\ContactForm;
 use app\models\Article;
-use yii\data\Pagination;
-use app\models\Category;
 use app\models\Comment;
 use app\models\CommentForm;
-use app\models\SubscribeForm;
 use yii\web\NotFoundHttpException;
 
 class ArticleController extends Controller
 {
   
+  /**
+   * Action for upload comment
+   * 
+   * @param type $id Article id
+   * @return yii\base\View
+   */
   public function actionComment($id)
   {
     $model = new CommentForm();
@@ -27,12 +25,17 @@ class ArticleController extends Controller
     if (Yii::$app->request->isPost) {
       $model->load(Yii::$app->request->post());
       if ($model->saveComment($id)) {
-        //Yii::$app->getSession()->setFlash('comment', 'Your comment will be added soon');
         return $this->redirect(['site/view', 'id' => $id]);
       }
     }
   }
-
+  
+  /**
+   * Action for editing comment
+   * 
+   * @param type $comment_id Comment id
+   * @return string $result Json result | false 
+   */
   public function actionEditComment($comment_id)
   {
     $model = new CommentForm();
@@ -46,6 +49,13 @@ class ArticleController extends Controller
     }
   }
 
+  /**
+   * Action for deleting comment
+   * 
+   * @param type $comment_id Comment id
+   * @return string $result Json result | false 
+   * @throws NotFoundHttpException
+   */
   public function actionDeleteComment($comment_id)
   {
     $article_id = Comment::getArticleIdByCommentId($comment_id);
@@ -72,21 +82,28 @@ class ArticleController extends Controller
     }
   }
   
+  /**
+   * Increases amount of likes
+   * 
+   * @param type $article_id Article id
+   * @return string Json result | false 
+   * @throws NotFoundHttpException
+   */
   public function actionLikeUp($article_id)
   {
-    if(!is_numeric($article_id)){
+    if (!is_numeric($article_id)) {
       throw new NotFoundHttpException();
     }
     $model = Article::findOne(['id' => $article_id]);
     if (Yii::$app->request->isPost && $model) {
       Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-      if($model->likeUp()){
+      if ($model->likeUp()) {
         $likes_amount = $model->likesAmount();
         $dislikes_amount = $model->dislikesAmount();
         return [
-          'success' => 1, 
-          'likes_amount' => $likes_amount,
-          'dislikes_amount' => $dislikes_amount,
+            'success' => 1,
+            'likes_amount' => $likes_amount,
+            'dislikes_amount' => $dislikes_amount,
         ];
       }
       return false;
@@ -95,21 +112,28 @@ class ArticleController extends Controller
     }
   }
   
+  /**
+   * Increases amount of dislikes
+   * 
+   * @param type $article_id Article id
+   * @return string Json result | false 
+   * @throws NotFoundHttpException
+   */
   public function actionLikeDown($article_id)
   {
-    if(!is_numeric($article_id)){
+    if (!is_numeric($article_id)) {
       throw new NotFoundHttpException();
     }
     $model = Article::findOne(['id' => $article_id]);
     if (Yii::$app->request->isPost && $model) {
       Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-      if($model->likeDown()){
+      if ($model->likeDown()) {
         $likes_amount = $model->likesAmount();
         $dislikes_amount = $model->dislikesAmount();
         return [
-          'success' => 1, 
-          'likes_amount' => $likes_amount,
-          'dislikes_amount' => $dislikes_amount,
+            'success' => 1,
+            'likes_amount' => $likes_amount,
+            'dislikes_amount' => $dislikes_amount,
         ];
       }
       return false;

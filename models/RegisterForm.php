@@ -35,7 +35,7 @@ class RegisterForm extends Model
     }
 
     /**
-     * @return array the validation rules.
+     * {@inheritdoc}
      */
     public function rules()
     {

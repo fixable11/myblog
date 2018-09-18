@@ -49,6 +49,8 @@ class ArticleTag extends \yii\db\ActiveRecord
     }
 
     /**
+     * Article table relation
+     * 
      * @return \yii\db\ActiveQuery
      */
     public function getArticle()
@@ -57,6 +59,8 @@ class ArticleTag extends \yii\db\ActiveRecord
     }
 
     /**
+     * Tag table relation
+     * 
      * @return \yii\db\ActiveQuery
      */
     public function getTag()

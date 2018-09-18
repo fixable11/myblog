@@ -58,6 +58,8 @@ class Comment extends \yii\db\ActiveRecord
   }
 
   /**
+   * Article table relation
+   * 
    * @return \yii\db\ActiveQuery
    */
   public function getArticle()
@@ -66,35 +68,63 @@ class Comment extends \yii\db\ActiveRecord
   }
 
   /**
+   * User table relation
+   * 
    * @return \yii\db\ActiveQuery
    */
   public function getUser()
   {
     return $this->hasOne(User::className(), ['id' => 'user_id']);
   }
-
+  
+  /**
+   * Returns data in formatted view
+   * 
+   * @return string
+   */
   public function getDate()
   {
     return Yii::$app->formatter->asDate($this->date);
   }
-
+  
+  /**
+   * Whether status of comment == 1
+   * 
+   * @return int 1|0
+   */
   public function isAllowed()
   {
     return $this->status;
   }
 
+  /**
+   * Sets allow status to comment
+   * 
+   * @return boolean
+   */
   public function allow()
   {
     $this->status = self::STATUS_ALLOW;
     return $this->save(false);
   }
 
+   /**
+   * Sets disallow status to comment
+   * 
+   * @return boolean
+   */
   public function disallow()
   {
     $this->status = self::STATUS_DISALLOW;
     return $this->save(false);
   }
-
+  
+  /**
+   * Returns article id by comment id
+   * 
+   * @param type $comment_id Comment id
+   * @return int Article id
+   */
   public static function getArticleIdByCommentId($comment_id)
   {
     $comment = Comment::find()->where(['id' => $comment_id])->one();

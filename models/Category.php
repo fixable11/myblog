@@ -43,26 +43,53 @@ class Category extends \yii\db\ActiveRecord
         ];
     }
     
+    /**
+     * Article table relation
+     * 
+     * @return \yii\db\ActiveQuery
+     */
     public function getArticles()
     {
         return $this->hasMany(Article::className(), ['category_id' => 'id']);
     }
     
+    /**
+     * Gets all categories
+     * 
+     * @return array Array of all categories
+     */
     public static function getAllCategories()
     {
         return ArrayHelper::map(Category::find()->all(), 'id', 'title');
     }
     
+    /**
+     * Gets amount of articles
+     * 
+     * @return int Count of articles
+     */
     public function getArticlesCount()
     {
         return $this->getArticles()->count();
     }
     
+    /**
+     * Gets all categories
+     * 
+     * @return yii\db\ActiveRecord
+     */
     public static function getAll()
     {
         return Category::find()->all();
     }
     
+    /**
+     * Gets category name by id
+     * 
+     * @param int $id Category id
+     * @return yii\db\ActiveRecord
+     * @throws \yii\web\NotFoundHttpException
+     */
     public static function getCategoryName($id)
     {
       if(!intval($id)){
@@ -72,6 +99,13 @@ class Category extends \yii\db\ActiveRecord
 
     }
     
+    /**
+     * Gets list of articles by category id
+     * 
+     * @param type $id Category id
+     * @param int $pageSize Amaount of articles per page 
+     * @return array $data Array contains: articles, pagination and category name
+     */
     public static function getArticlesByCategory($id, $pageSize = null)
     {
       if(is_null($pageSize)){

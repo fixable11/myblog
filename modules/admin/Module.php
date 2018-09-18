@@ -26,8 +26,9 @@ class Module extends \yii\base\Module
     // custom initialization code goes here
   }
   
-  
-
+  /**
+   * {@inheritdoc}
+   */
   public function behaviors()
   {
     return [
