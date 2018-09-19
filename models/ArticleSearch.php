@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Article;
+use yii\data\Pagination;
 
 /**
  * ArticleSearch represents the model behind the search form of `app\models\Article`.
@@ -75,5 +76,30 @@ class ArticleSearch extends Article
             ->andFilterWhere(['like', 'image', $this->image]);
 
         return $dataProvider;
+    }
+    
+    public function fulltextSearch($keyword)
+    {
+      $keyword = addslashes(htmlspecialchars($keyword));
+      $limit = Yii::$app->params['searchLimit'];
+      
+      $sql = "SELECT * FROM article"
+      . " WHERE MATCH (content,title,description) AGAINST ('{$keyword}')";
+
+      
+      $query = Article::findBySql($sql);
+      $count = $query->count();
+      $pagination = new Pagination([
+          'totalCount' => $count, 
+          'pageSize' => $limit
+      ]);
+      
+      $sql .= "LIMIT {$pagination->limit} OFFSET {$pagination->offset}";
+      $articles = Article::findBySql($sql)->with('author')->all();
+
+      $data['articles'] = $articles;
+      $data['pagination'] = $pagination;
+      
+      return $data;
     }
 }
