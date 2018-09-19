@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
+use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\Comment */
@@ -22,6 +23,36 @@ $this->params['breadcrumbs'][] = $this->title;
           ['class' => 'yii\grid\SerialColumn'],
         'id',
         'text',
+        [
+            'label' => 'Allow',
+            'format' => 'raw',
+            'value' => function($data)
+            {
+              if($data->status){
+                $output = Html::beginForm(['comments/disallow', 'id' => $data->id], 'post', ['class' => 'comments__disallowForm']);
+                $output .= Html::submitButton('Disallow', ['class' => 'btn btn-warning comments__disallowSubmit']);
+                $output .= Html::endForm();
+                return $output;
+              } else {
+                $output = Html::beginForm(['comments/allow', 'id' => $data->id], 'post', ['class' => 'comments__allowForm']);
+                $output .= Html::submitButton('Allow', ['class' => 'btn btn-success comments__allowSubmit']);
+                $output .= Html::endForm();
+                return $output;
+              }
+             
+            }
+        ],
+        [
+            'label' => 'Delete',
+            'format' => 'raw',
+            'value' => function($data)
+            {
+                $output = Html::beginForm(['comments/delete', 'id' => $data->id], 'post', ['class' => 'comments__deleteForm']);
+                $output .= Html::submitButton('Delete', ['class' => 'btn btn-danger comments__deleteSubmit']);
+                $output .= Html::endForm();
+                return $output;       
+            }
+        ],
         'user_id',
         'article_id',
         [
@@ -76,3 +107,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
   <?php endif;?>
 </div>
+
+
+
+
+<!--<button type="submit" class="comment__delete">
+  <i class="fas fa-times"></i>
+</button>-->

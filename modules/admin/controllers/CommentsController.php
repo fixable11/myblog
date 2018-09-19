@@ -36,7 +36,7 @@ class CommentsController extends Controller
         $comment = Comment::findOne($id);
         if($comment->delete())
         {
-            return $this->redirect(['comment/index']);
+            return $this->redirect(['index']);
         }
     }
     
