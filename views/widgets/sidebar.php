@@ -55,7 +55,7 @@ use yii\helpers\Html;
               <li class="categoriesWidget__one">
                 <a href="<?= Url::toRoute(['site/category', 'id' => $category->id]); ?>" class="categoriesWidget__link"><?= $category->title; ?> (<?= $category->getArticlesCount(); ?>)</a>
                 <?php if($i != $cnt - 1): ?> 
-                  <span class="categoriesWidget__span">,</span>
+                  <span class="categoriesWidget__comma">,</span>
                 <?php endif; ?>
               </li>
               <?php $i++; ?>

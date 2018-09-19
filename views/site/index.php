@@ -27,7 +27,7 @@ $this->title = 'Treasure main page';
     <div class="row">
       <div class="col-lg-8">
         <?= $this->render('@app/views/particles/posts', ['articles' => $articles]); ?>
-        <ul class="pagination">
+        <ul class="mainPagination">
           <?php
           echo LinkPager::widget([
               'pagination' => $pagination,

@@ -1,20 +1,24 @@
 .mainHeader
+	position: relative
 	.mainHeaderInner
-		height: 100px
+		height: 130px
 		background-color: #453d3d
 		
 .mainHeaderNav
-	height: 100px
+	height: 70px
 	display: -webkit-flex
 	display: -moz-flex
 	display: -ms-flex
 	display: -o-flex
 	display: flex
 	align-items: center
-	justify-content: space-between
+	//justify-content: space-between
 	width: 100%
 	&__logoLink
 		display: block
+	&__ulWrap
+		margin-left: auto
+		&_active
 	&__ul
 		height: 100%
 		list-style-type: none
@@ -25,6 +29,7 @@
 		display: flex
 		align-items: center
 		justify-content: flex-start
+			
 	&__li
 		margin-right: 20px
 	&__a
@@ -34,6 +39,19 @@
 		border: none
 		display: inline-block
 		cursor: pointer
+		padding-left: 0
 		&:hover
 			color: #b2acac
+			text-decoration: underline
+	&__barsWrap
+		margin-left: auto
+		display: none
+		padding: 10px
+		cursor: pointer
+		transition: all .3s
+		&:hover
+			background-color: darken(#453d3d, 5%)
+	&__barsIcon
+		font-size: 26px
+		color: #fff
 

@@ -1,9 +1,12 @@
 .mainArticles
 .mainArticle
+	overflow: hidden
 	border: 1px solid #dee2e6
 	&_big-one
 		height: 730px
 		margin-top: 50px
+		.mainArticle__titleCategory
+			margin-top: 40px
 	&_small-one
 		height: 340px
 		margin-top: 50px
@@ -29,6 +32,12 @@
 		.mainArticle__content
 			height: calc(340px - 150px)
 			overflow: hidden
+		.mainArticle__titleCategory
+			display: none
+		.mainArticle__identity
+			display: none
+		.mainArticle__descBlock
+			display: none
 	&__imgWrap
 		height: 350px
 		display: -webkit-flex
@@ -79,7 +88,7 @@
 	&__titles
 	&__titleCategory
 		text-align: center
-		margin-top: 40px
+		margin-top: 0px
 
 	&__titleCategoryLink
 		color: #00bff2
@@ -109,13 +118,21 @@
 			text-decoration: none
 			color: #fff
 	&__social
-		display: block
+		display: -webkit-flex
+		display: -moz-flex
+		display: -ms-flex
+		display: -o-flex
+		display: flex
 		&::after
 			display: block
 			content: ''
 			clear: both
 	&__identity
-		float: left
+		display: -webkit-flex
+		display: -moz-flex
+		display: -ms-flex
+		display: -o-flex
+		display: flex
 	&__identityLeft
 		display: block
 		float: left

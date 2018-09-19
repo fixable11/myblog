@@ -17,7 +17,7 @@ $timezoneoffset = $_COOKIE['timezoneoffset'] ?? 0;
         <h3 class="h3 categories__title">Поиск по категории "<?= $categoryName ?>"</h3>
         <?php if(count($articles) != 0): ?>
           <?php foreach ($articles as $article): ?>
-            <article class="categories__article post post-list">
+            <article class="categories__article">
               <div class="row no-gutters">
                 <div class="col-md-5">
                   <div class="categories__articleLeft">

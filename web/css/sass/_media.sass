@@ -2,22 +2,168 @@
 
 /* Large Devices, Wide Screens */
 @media only screen and (max-width : 1200px)
-	/**/
+	.widget 
+		padding: 20px 20px
+	.mainArticle
+		&_big-one
+			.mainArticle__content
+				padding: 20px
+			.mainArticle__continue
+				margin-top: 20px
+				margin-bottom: 20px
+			.mainArticle__social
+				flex-direction: column
 
+			.mainArticle__identityLeft
+				text-align: left
+			.mainArticle__identityRight
+				margin-left: 0
+			.mainArticle__titleCategory
+				margin-top: 0
+		&_small-one
+			.mainArticle__socialOne
+				margin-right: 6px
+	.comment__right
+		margin-left: 0
 
 /* Medium Devices, Desktops */
 @media only screen and (max-width : 992px)
-	/**/
-
+	.mainArticle
+		&_big-one
+			height: auto
+			min-height: 730px
+		&_small-one
+	.post__content
+		padding: 20px
+	.post__titleCategory
+		margin-top: 0
+	.mainHeader 
+		.container
+			max-width: 100%
+		.row
+			padding-left: 15px
+			padding-right: 15px
+	.mainHeaderNav__ulWrap
+		display: none
+		position: absolute
+		top: 100%
+		z-index: 100
+		left: 0
+		width: 100%
+		&_active
+	.mainHeaderNav__ul
+		display: -webkit-flex
+		display: -moz-flex
+		display: -ms-flex
+		display: -o-flex
+		display: flex
+		background-color: #453d3d
+		flex-direction: column
+		margin-left: 0
+		align-items: flex-start
+	.mainHeaderNav__li
+		width: 100%
+		transition: all .3s
+		&:hover
+			background-color: darken(#453d3d, 5%)
+	.mainHeaderNav__a
+		padding: 10px 15px
+		width: 100%
+		height: 100%
+		text-align: left
+	.mainHeaderNav__barsWrap
+		display: -webkit-flex
+		display: -moz-flex
+		display: -ms-flex
+		display: -o-flex
+		display: flex
+	.pagination
+		margin-bottom: 0
+	.post__desc
+		min-height: 70px
 
 /* Small Devices, Tablets */
 @media only screen and (max-width : 768px)
-	/**/
-
+	.mainArticle
+		&_big-one
+		&_small-one
+			height: auto
+			min-height: 730px
+			.mainArticle__imgWrap
+				height: 350px
+			.mainArticle__titleCategory
+				display: block
+			.mainArticle__titlePost
+				font-size: 2rem
+				margin-bottom: 0.5rem
+				line-height: 1.2
+			.mainArticle__content
+				padding: 20px
+			.mainArticle__descBlock
+				display: block
+			.mainArticle__content
+				height: auto
+			.mainArticle__titlePost
+				height: auto
+			.mainArticle__identity
+				display: -webkit-flex
+				display: -moz-flex
+				display: -ms-flex
+				display: -o-flex
+				display: flex
+			.mainArticle__social
+				flex-direction: column
+				align-items: flex-start
+			.mainArticle__identityLeft
+				text-align: left
+			.mainArticle__identityRight
+				margin-left: 0
+			.mainArticle__continue
+				margin-top: 20px
+				margin-bottom: 20px
+		&__titleCategory
+			margin-top: 0
+	.post__identityLeft
+		text-align: left
+	.post__social
+		flex-direction: column
+	.post__identityRight
+		margin: 0
+	.post__socialIcons
+		margin-left: 0
+	.categories__titleArticle,
+	.tags__titleArticle
+		text-align: center
+	.categories__titleArticle,
+	.tags__titleArticle
+		font-size: 2rem
+	
 
 /* Extra Small Devices, Phones */
-@media only screen and (max-width : 480px)
-	/**/
+@media only screen and (max-width : 576px)
+	.singleSocial__createdWrap
+		display: -webkit-flex
+		display: -moz-flex
+		display: -ms-flex
+		display: -o-flex
+		display: flex
+		flex-direction: column
+	.singleSocial__author
+		margin-left: 20px
+	.singleSocial__authorIcon
+		position: relative
+		top: 20px
+	.comment__user
+		top: 15px
+	.comment__text
+		margin-top: 35px
+	.comment
+		padding: 15px
+	.comment__deleteWrap
+		right: -10px
+		top: -10px
+	.comment__date
+		margin-top: 15px
 
 
 /* Custom, iPhone Retina */

@@ -1,7 +1,7 @@
 <?php
 /* @var $this \yii\web\View */
 /* @var $article app\models\Article */
-/* @var $comments app\models\Article */
+/* @var $comments app\models\Comment */
 /* @var $commentForm app\models\CommentForm */
 
 use yii\widgets\ActiveForm;
@@ -14,16 +14,17 @@ YiiAsset::register($this);
 $app_id = Yii::$app->params['fb_app_id'];
 $redirect_uri = Yii::$app->params['fb_redirect_uri'];
 
+$timezoneoffset = $_COOKIE['timezoneoffset'] ?? 0;
+
 $session = Yii::$app->session;
-if(!$session->isActive){
+if (!$session->isActive) {
   $session->open();
 }
-if(!$session->has('state')){
+if (!$session->has('state')) {
   $state = Yii::$app->security->generateRandomString();
   $session->set('state', $state);
 }
 $state = $session->get('state');
-
 ?>
 <section class="comments">
   <div class="container">
@@ -54,13 +55,15 @@ $state = $session->get('state');
                     </div>
                     <?php if (\Yii::$app->user->can('editOwnComments', ['author_id' => $comment->user_id])): ?>
                       <div class="comment__deleteWrap">
-                        <?php $form = ActiveForm::begin([
-                            'action' => ['article/delete-comment','comment_id' => $comment->id],
+                        <?php
+                        $form = ActiveForm::begin([
+                            'action' => ['article/delete-comment', 'comment_id' => $comment->id],
                             'options' => ['class' => 'comment__deleteForm contact-form', 'role' => 'form'],
                             'enableAjaxValidation' => true,
                             //'validationUrl' => '',
                             'fieldConfig' => ['options' => ['class' => 'comment__deleteFormWrap']],
-                        ]); ?>
+                        ]);
+                        ?>
                         <button type="submit" class="comment__delete">
                           <i class="fas fa-times"></i>
                         </button>
@@ -68,17 +71,21 @@ $state = $session->get('state');
                       </div>
                     <?php endif; ?>
                     <?php if (\Yii::$app->user->can('editOwnComments', ['author_id' => $comment->user_id])): ?>
-                      <?php $form = ActiveForm::begin([
-                          'action' => ['article/edit-comment','comment_id' => $comment->id],
+                      <?php
+                      $form = ActiveForm::begin([
+                          'action' => ['article/edit-comment', 'comment_id' => $comment->id],
                           'options' => ['class' => 'comment__editForm contact-form', 'role' => 'form'],
                           'enableAjaxValidation' => true,
                           //'validationUrl' => '',
                           'fieldConfig' => ['options' => ['class' => 'comment__editFormWrap']],
-                      ]); ?>
-                      <?= $form->field($commentForm, 'comment')->textarea([
+                      ]);
+                      ?>
+                      <?=
+                      $form->field($commentForm, 'comment')->textarea([
                           'class' => 'form-control comment__editTextarea',
                           'placeholder' => '',
-                      ])->label(false); ?>
+                      ])->label(false);
+                      ?>
                       <button type="submit" class="comment__save btn-success">Сохранить</button>
                       <?php $form->end(); ?>
                     <?php endif; ?>
@@ -96,7 +103,7 @@ $state = $session->get('state');
                       <button  class="comment__cancel btn-danger">Отменить</button>
                     <?php endif; ?>
                     <div class="comment__date">
-                      <?= $comment->getDate(); ?>
+                      <?= $comment->getDate($timezoneoffset); ?>
                     </div>
                   </div>
                 </div>
@@ -113,19 +120,18 @@ $state = $session->get('state');
             <h4 class="leaveComment__title h6">Оставить комментарий</h4>
           </div>
           <div class="col-lg-12">
-          <?php
-          $form = ActiveForm::begin([
-              'action' => ['article/comment', 'id' => $article->id],
-              'options' => ['class' => 'contact-form leaveComment__form', 'role' => 'form'],
-             //'enableAjaxValidation' => true,
-              //'validationUrl' => '',
-              //'fieldConfig' => ['options' => ['class' => '']],
-          ])
-          ?>
+            <?php
+            $form = ActiveForm::begin([
+                'action' => ['article/comment', 'id' => $article->id],
+                'options' => ['class' => 'contact-form leaveComment__form', 'role' => 'form'],
+            //'enableAjaxValidation' => true,
+            //'validationUrl' => '',
+            //'fieldConfig' => ['options' => ['class' => '']],
+            ])
+            ?>
 
             <?=
             $form->field($commentForm, 'comment', [
-              
             ])->textarea([
                 'class' => 'form-control leaveComment__textarea',
                 'placeholder' => 'Содержание...',
@@ -133,7 +139,7 @@ $state = $session->get('state');
             ?>
             <button type="submit" class="btn send-btn leaveComment__submitBtn">Отправить</button>
           </div>
-        <?php ActiveForm::end(); ?>
+          <?php ActiveForm::end(); ?>
         </div>
       </div>
     <?php else: ?>

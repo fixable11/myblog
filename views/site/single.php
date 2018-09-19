@@ -13,6 +13,7 @@ use app\widgets\Comment;
 use app\models\Likes;
 
 $this->title = $article->title;
+
 ?>
 <section class="single">
   <div class="container">
@@ -24,7 +25,7 @@ $this->title = $article->title;
                 <ul class="single__breadcrumbTrail">
                   <li class="single__breadcrumb"><a href="<?= Url::home() ?>" class="single__breadcrumb">Главная</a></li>
                   <li class="single__breadcrumb">/</li>
-                  <li class="single__breadcrumb"><a class="single__breadcrumLink" href="<?= Url::toRoute(['site/category', 'id' => $article->category->id]) ?>"> <?= $article->category->title; ?></a></li>
+                  <li class="single__breadcrumb"><a class="single__breadcrumLink" href="<?= Url::toRoute(['site/category', 'id' => $article->category->id ?? '#']) ?>"><?= $article->category->title ?? 'Категория не определена' ?></a></li>
                 </ul>
                 <h1 class="single__title"><?= $article->title; ?></h1>
               </header>

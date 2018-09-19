@@ -82,7 +82,11 @@
 			text-decoration: none
 			color: #fff
 	&__social
-		display: block
+		display: -webkit-flex
+		display: -moz-flex
+		display: -ms-flex
+		display: -o-flex
+		display: flex
 		&::after
 			display: block
 			content: ''
@@ -119,7 +123,7 @@
 		font-style: italic
 	&__socialIcons
 		margin-top: 15px
-		float: right
+		margin-left: auto
 		display: -webkit-flex
 		display: -moz-flex
 		display: -ms-flex

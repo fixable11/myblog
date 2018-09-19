@@ -80,11 +80,14 @@ class Comment extends \yii\db\ActiveRecord
   /**
    * Returns data in formatted view
    * 
+   * @param int $offset Timezone offset
    * @return string
    */
-  public function getDate()
+  public function getDate($offset = 0)
   {
-    return Yii::$app->formatter->asDate($this->date);
+    $timestamp = strtotime($this->date);
+    $date = $timestamp + $offset * 60 * 60;
+    return Yii::$app->formatter->asDate($date, 'dd.MM.yyyy в HH:mm:ss');
   }
   
   /**

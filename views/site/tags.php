@@ -17,7 +17,7 @@ $timezoneoffset = $_COOKIE['timezoneoffset'] ?? 0;
         <h3 class="h3 tags__title">Поиск по тегу "<?= $tagName ?>"</h3>
         <?php if(count($articles) != 0): ?>
           <?php foreach ($articles as $article): ?>
-            <article class="tags__article post post-list">
+            <article class="tags__article">
               <div class="row no-gutters">
                 <div class="col-md-5">
                   <div class="tags__articleLeft">
