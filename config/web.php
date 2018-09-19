@@ -105,7 +105,10 @@ $config = [
                 'path' => 'images/posts',
                 'name' => 'Files'
             ],
-        ]
+        ],
+        'fixture' => [
+            'class' => 'yii\faker\FixtureController',
+        ],
     ],
     
     'params' => $params,

@@ -4,6 +4,7 @@ return [
     'adminEmail' => 'admin@example.com',
     'popularLimit' => 5,
     'recentLimit' => 4,
+    'searchLimit' => 5,
     'pageDefaultSize' => 4,
     'textLimit' => 500,
     'user.passwordResetTokenExpire' => 3600,
