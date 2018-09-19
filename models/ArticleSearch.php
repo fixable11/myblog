@@ -20,8 +20,16 @@ class ArticleSearch extends Article
     {
         return [
             [['id', 'viewed', 'user_id', 'status', 'category_id'], 'integer'],
-            [['title', 'description', 'content', 'date', 'image'], 'safe'],
+            [['title', 'description', 'content', 'date', 'image', 'category.title'], 'safe'],
         ];
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function attributes()
+    {
+        return array_merge(parent::attributes(), ['category.title']);
     }
 
     /**
@@ -59,6 +67,16 @@ class ArticleSearch extends Article
             // $query->where('0=1');
             return $dataProvider;
         }
+        
+        $query->joinWith([
+          'category' => function($query){
+            $query->from(['category' => 'category']);
+          }
+        ]);
+        $dataProvider->sort->attributes['category.title'] = [
+          'asc' => ['category.title' => SORT_ASC],
+          'desc' => ['category.title' => SORT_DESC],
+        ];
 
         // grid filtering conditions
         $query->andFilterWhere([
@@ -73,7 +91,8 @@ class ArticleSearch extends Article
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'description', $this->description])
             ->andFilterWhere(['like', 'content', $this->content])
-            ->andFilterWhere(['like', 'image', $this->image]);
+            ->andFilterWhere(['like', 'image', $this->image])
+            ->andFilterWhere(['like', 'category.title', $this->getAttribute('category.title')]);
 
         return $dataProvider;
     }
