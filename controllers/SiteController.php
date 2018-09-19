@@ -119,11 +119,16 @@ class SiteController extends Controller
    */
   public function actionCategory($id, $pageSize = null)
   {
+    $categoryExist = Category::findOne(['id' => $id]);
+    if(!$categoryExist){
+      throw new NotFoundHttpException();
+    }
     $data = Category::getArticlesByCategory($id, $pageSize);
     $recent = Article::getRecent();
     $categories = Category::getAll();
     $subModel = new SubscribeForm();
     $tags = Tag::getAllTags();
+    
 
     return $this->render('category', [
         'articles' => $data['articles'],
@@ -148,8 +153,11 @@ class SiteController extends Controller
     if (is_null($pageSize)) {
       $pageSize = Yii::$app->params['pageDefaultSize'];
     }
-    
-    $data = Tag::getArticlesByTagTitle($tag);
+    $tagExist = Tag::findOne(['title' => $tag]);
+    if(!$tagExist){
+      throw new NotFoundHttpException();
+    }
+    $data = Tag::getArticlesByTagTitle($tag); 
     $recent = Article::getRecent();
     $categories = Category::getAll();
     $subModel = new SubscribeForm();
@@ -175,6 +183,9 @@ class SiteController extends Controller
   public function actionView($id)
   {
     $article = Article::findOne($id);
+    if(!$article){
+      throw new NotFoundHttpException();
+    }
     $popular = Article::getPopular(Yii::$app->params['popularLimit']);
     $recent = Article::getRecent();
     $categories = Category::getAll();
