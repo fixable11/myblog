@@ -215,10 +215,10 @@ $(document).ready(function() {
 	//========MENU_TOGGLE======
 	$('.mainHeaderNav__barsWrap').on('click',function(){
 	  $('.mainHeaderNav__ulWrap').slideToggle(200, function(){
-		    if($(this).css('display') === 'none') {
-		      $(this).removeAttr('style');
-		    }
-	    });
+	    if($(this).css('display') === 'none') {
+	      $(this).removeAttr('style');
+	    }
+	  });
 	});
 
 });

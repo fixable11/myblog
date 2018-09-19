@@ -73,7 +73,7 @@ class SiteController extends Controller
    */
   public function actionIndex()
   {
-    $data = Article::getAll(self::ARTICLES_PER_PAGE, Yii::$app->params['popularLimit']);
+    $data = Article::getAll(self::ARTICLES_PER_PAGE);
     $popular = Article::getPopular(Yii::$app->params['popularLimit']);
     $recent = Article::getRecent();
     $categories = Category::getAll();
@@ -196,5 +196,6 @@ class SiteController extends Controller
         'tags' => $tags,
     ]);
   }
+  
 
 }

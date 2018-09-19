@@ -39,7 +39,7 @@ $timezoneoffset = $_COOKIE['timezoneoffset'] ?? 0;
                 </div>
               </div>
               <ul class="mainArticle__socialIcons">
-                <li class="mainArticle__socialOne"><i class="mainArticle__socialIcon fas fa-comments"></i><span class="mainArticle__socialText"><?= $popular[0]->getComments()->count() ?></span></li>
+                <li class="mainArticle__socialOne"><i class="mainArticle__socialIcon fas fa-comments"></i><span class="mainArticle__socialText"><?= count($popular[0]->comments) ?></span></li>
                 <li class="mainArticle__socialOne"><i class="mainArticle__socialIcon fa fa-eye"></i><span class="mainArticle__socialText"><?= (int) $popular[0]->viewed; ?></span></li>
                 <li class="mainArticle__socialOne"><i class="mainArticle__socialIcon fas fa-thumbs-up"></i><span class="mainArticle__socialText"><?= $popular[0]->like_up; ?></span></li>            
                 <li class="mainArticle__socialOne"><i class="mainArticle__socialIcon fas fa-thumbs-down"></i><span class="mainArticle__socialText"><?= $popular[0]->like_down; ?></span></li>            
@@ -78,7 +78,7 @@ $timezoneoffset = $_COOKIE['timezoneoffset'] ?? 0;
                     </div>
                   </div>
                   <ul class="mainArticle__socialIcons">
-                    <li class="mainArticle__socialOne"><i class="mainArticle__socialIcon fas fa-comments"></i><span class="mainArticle__socialText"><?= $popular[0]->getComments()->count() ?></span></li>
+                    <li class="mainArticle__socialOne"><i class="mainArticle__socialIcon fas fa-comments"></i><span class="mainArticle__socialText"><?= count($popular[0]->comments) ?></span></li>
                     <li class="mainArticle__socialOne"><i class="mainArticle__socialIcon fa fa-eye"></i><span class="mainArticle__socialText"><?= (int) $popular[0]->viewed; ?></span></li>
                     <li class="mainArticle__socialOne"><i class="mainArticle__socialIcon fas fa-thumbs-up"></i><span class="mainArticle__socialText"><?= $popular[0]->like_up; ?></span></li>            
                     <li class="mainArticle__socialOne"><i class="mainArticle__socialIcon fas fa-thumbs-down"></i><span class="mainArticle__socialText"><?= $popular[0]->like_down; ?></span></li>            
@@ -115,7 +115,7 @@ $timezoneoffset = $_COOKIE['timezoneoffset'] ?? 0;
                     </div>
                   </div>
                   <ul class="mainArticle__socialIcons">
-                    <li class="mainArticle__socialOne"><i class="mainArticle__socialIcon fas fa-comments"></i><span class="mainArticle__socialText"><?= $popular[0]->getComments()->count() ?></span></li>
+                    <li class="mainArticle__socialOne"><i class="mainArticle__socialIcon fas fa-comments"></i><span class="mainArticle__socialText"><?= count($popular[0]->comments) ?></span></li>
                     <li class="mainArticle__socialOne"><i class="mainArticle__socialIcon fa fa-eye"></i><span class="mainArticle__socialText"><?= (int) $popular[0]->viewed; ?></span></li>
                     <li class="mainArticle__socialOne"><i class="mainArticle__socialIcon fas fa-thumbs-up"></i><span class="mainArticle__socialText"><?= $popular[0]->like_up; ?></span></li>            
                     <li class="mainArticle__socialOne"><i class="mainArticle__socialIcon fas fa-thumbs-down"></i><span class="mainArticle__socialText"><?= $popular[0]->like_down; ?></span></li>            
@@ -152,7 +152,7 @@ $timezoneoffset = $_COOKIE['timezoneoffset'] ?? 0;
                     </div>
                   </div>
                   <ul class="mainArticle__socialIcons">
-                    <li class="mainArticle__socialOne"><i class="mainArticle__socialIcon fas fa-comments"></i><span class="mainArticle__socialText"><?= $popular[0]->getComments()->count() ?></span></li>
+                    <li class="mainArticle__socialOne"><i class="mainArticle__socialIcon fas fa-comments"></i><span class="mainArticle__socialText"><?= count($popular[0]->comments) ?></span></li>
                     <li class="mainArticle__socialOne"><i class="mainArticle__socialIcon fa fa-eye"></i><span class="mainArticle__socialText"><?= (int) $popular[0]->viewed; ?></span></li>
                     <li class="mainArticle__socialOne"><i class="mainArticle__socialIcon fas fa-thumbs-up"></i><span class="mainArticle__socialText"><?= $popular[0]->like_up; ?></span></li>            
                     <li class="mainArticle__socialOne"><i class="mainArticle__socialIcon fas fa-thumbs-down"></i><span class="mainArticle__socialText"><?= $popular[0]->like_down; ?></span></li>            
@@ -189,7 +189,7 @@ $timezoneoffset = $_COOKIE['timezoneoffset'] ?? 0;
                     </div>
                   </div>
                   <ul class="mainArticle__socialIcons">
-                    <li class="mainArticle__socialOne"><i class="mainArticle__socialIcon fas fa-comments"></i><span class="mainArticle__socialText"><?= $popular[0]->getComments()->count() ?></span></li>
+                    <li class="mainArticle__socialOne"><i class="mainArticle__socialIcon fas fa-comments"></i><span class="mainArticle__socialText"><?= count($popular[0]->comments) ?></span></li>
                     <li class="mainArticle__socialOne"><i class="mainArticle__socialIcon fa fa-eye"></i><span class="mainArticle__socialText"><?= (int) $popular[0]->viewed; ?></span></li>
                     <li class="mainArticle__socialOne"><i class="mainArticle__socialIcon fas fa-thumbs-up"></i><span class="mainArticle__socialText"><?= $popular[0]->like_up; ?></span></li>            
                     <li class="mainArticle__socialOne"><i class="mainArticle__socialIcon fas fa-thumbs-down"></i><span class="mainArticle__socialText"><?= $popular[0]->like_down; ?></span></li>            

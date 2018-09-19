@@ -53,7 +53,7 @@ use yii\helpers\Html;
             <?php $cnt = count($categories); $i = 0; ?>
             <?php foreach ($categories as $category): ?>
               <li class="categoriesWidget__one">
-                <a href="<?= Url::toRoute(['site/category', 'id' => $category->id]); ?>" class="categoriesWidget__link"><?= $category->title; ?> (<?= $category->getArticlesCount(); ?>)</a>
+                <a href="<?= Url::toRoute(['site/category', 'id' => $category->id]); ?>" class="categoriesWidget__link"><?= $category->title; ?> (<?= count($category->articles); ?>)</a>
                 <?php if($i != $cnt - 1): ?> 
                   <span class="categoriesWidget__comma">,</span>
                 <?php endif; ?>

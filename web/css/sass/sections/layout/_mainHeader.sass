@@ -55,3 +55,41 @@
 		font-size: 26px
 		color: #fff
 
+.mainSearch
+	&__form
+		display: -webkit-flex
+		display: -moz-flex
+		display: -ms-flex
+		display: -o-flex
+		display: flex
+		align-items: center
+	&__searchField
+		font-family: 'Open Sans', sans-serif
+		text-indent: 5px
+		height: 38px
+		width: 300px
+		border-left: none
+		&:focus
+			border: 1px solid #00bef2 !important
+			border-left: none !important
+		&::placeholder
+	&__submit
+		background-color: orange
+		border: none
+		height: 36px
+		width: 36px
+		cursor: pointer
+		display: -webkit-flex
+		display: -moz-flex
+		display: -ms-flex
+		display: -o-flex
+		display: flex
+		align-items: center
+		justify-content: center
+		transition: transform .3s
+		&:hover
+			transform: scale(1.05)
+	&__icon
+		color: #fff
+
+

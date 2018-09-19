@@ -227,21 +227,26 @@ class Article extends \yii\db\ActiveRecord
    * @return array $array['articles'] = [[ActiveQuery]], 
    * $array['pagination'] = [[Pagination]]
    */
-  public static function getAll($pageSize = null, $offsetPopular = 0)
+  public static function getAll($pageSize = null)
   {
     if (is_null($pageSize)) {
       $pageSize = Yii::$app->params['pageDefaultSize'];
     }
 
-    $query = Article::find()->where(['status' => 1]);
+    $query = Article::find()
+    ->with('author')
+    ->with('comments')
+    ->with('category')
+    ->where(['status' => 1]);
     
-    $count = $query->count() - $offsetPopular;
+    $count = $query->count();
     $pagination = new Pagination([
         'totalCount' => $count,
         'pageSize' => $pageSize
     ]);
 
-    $articles = $query->offset($pagination->offset + $offsetPopular)
+    $articles = $query->offset($pagination->offset)
+    ->orderBy('id desc')
     ->limit($pagination->limit)
     ->all();
 
@@ -258,7 +263,7 @@ class Article extends \yii\db\ActiveRecord
    */
   public static function getPopular($limit)
   {
-    return Article::find()->orderBy('viewed desc')->limit($limit)->all();
+    return Article::find()->with('comments')->orderBy('viewed desc')->limit($limit)->all();
   }
   
   /**

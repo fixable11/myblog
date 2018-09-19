@@ -37,7 +37,7 @@ $timezoneoffset = $_COOKIE['timezoneoffset'] ?? 0;
             </div>
           </div>
           <ul class="post__socialIcons">
-            <li class="post__socialOne"><i class="post__socialIcon fas fa-comments"></i><span class="post__socialText"><?= $article->getComments()->count() ?></span></li>
+            <li class="post__socialOne"><i class="post__socialIcon fas fa-comments"></i><span class="post__socialText"><?= count($article->comments) ?></span></li>
             <li class="post__socialOne"><i class="post__socialIcon fa fa-eye"></i><span class="post__socialText"><?= (int) $article->viewed; ?></span></li>
             <li class="post__socialOne"><i class="post__socialIcon fas fa-thumbs-up"></i><span class="post__socialText"><?= $article->like_up; ?></span></li>            
             <li class="post__socialOne"><i class="post__socialIcon fas fa-thumbs-down"></i><span class="post__socialText"><?= $article->like_down; ?></span></li>            

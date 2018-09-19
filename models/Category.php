@@ -80,7 +80,7 @@ class Category extends \yii\db\ActiveRecord
      */
     public static function getAll()
     {
-        return Category::find()->all();
+        return Category::find()->with('articles')->all();
     }
     
     /**

@@ -48,28 +48,34 @@ b, strong
 	display: block !important
 
 @import 'normalize'
-@import 'sections/mainArticles'
-@import 'sections/mainHeader'
-@import 'sections/posts'
-@import 'sections/primarySidebar'
+@import 'general'
+
+@import 'sections/auth/requestPasswordReset'
+@import 'sections/auth/resetPassword'
+@import 'sections/auth/login'
+@import 'sections/auth/register'
+
+@import 'sections/layout/mainHeader'
+@import 'sections/layout/mainFooter'
+
+@import 'sections/particals/mainArticles'
+@import 'sections/particals/posts'
+
+@import 'sections/sidebar/primarySidebar'
+
+@import 'sections/search/search'
 
 @import 'sections/widgets/freshRecordsWidget'
 @import 'sections/widgets/subscribeWidget'
 @import 'sections/widgets/categoriesWidget'
 @import 'sections/widgets/tagsWidget'
+@import 'sections/widgets/comments'
 
-@import 'sections/categories'
-@import 'sections/tags'
-@import 'sections/single'
-@import 'sections/requestPasswordReset'
-@import 'sections/resetPassword'
-@import 'sections/login'
-@import 'sections/register'
-@import 'sections/mainContent'
-@import 'general'
-@import 'sections/comments'
-@import 'sections/mainFooter'
-@import 'sections/error'
+@import 'sections/site/categories'
+@import 'sections/site/tags'
+@import 'sections/site/single'
+@import 'sections/site/error'
+@import 'sections/site/mainContent'
 
 @import 'sections/admin/general'
 

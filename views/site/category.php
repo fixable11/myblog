@@ -55,14 +55,14 @@ $timezoneoffset = $_COOKIE['timezoneoffset'] ?? 0;
               </div>
             </article>
           <?php endforeach; ?>
-          <ul class="pagination">
+          <div class="category__pagination">
             <?php
             echo LinkPager::widget([
                 'pagination' => $pagination,
                 'disabledPageCssClass' => '',
             ]);
             ?>
-          </ul>
+          </div>
         <?php else: ?>
           <div class="categories__noData">Извините, но статей по данной категории не найдено.</div>
         <?php endif; ?>

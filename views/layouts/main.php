@@ -10,6 +10,7 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use app\assets\PublicAsset;
 use yii\helpers\Url;
+use yii\widgets\ActiveForm;
 
 //AppAsset::register($this);
 PublicAsset::register($this);
@@ -62,7 +63,12 @@ if(isset(Yii::$app->user->identity->last_name)){
                 </div>
               </nav>
               <div class="mainHeader__search mainSearch">
-                
+                <form method="GET" action="/search" class="mainSearch__form">
+                  <button class="mainSearch__submit">
+                    <i class="fas fa-search mainSearch__icon"></i>
+                  </button>  
+                  <input type="text" class="mainSearch__searchField" name="q" placeholder="Что ищем?">  
+                </form>
               </div>
             </div>
           </div>
