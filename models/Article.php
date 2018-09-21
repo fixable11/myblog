@@ -210,13 +210,24 @@ class Article extends \yii\db\ActiveRecord
    * Returns date as formatted data that depends on user's timezone
    * 
    * @param type $offset timezone offset
-   * @return type
+   * @return string Date
    */
   public function getDate($offset = 0)
   {
     $timestamp = strtotime($this->date);
     $date = $timestamp + $offset * 60 * 60;
     return Yii::$app->formatter->asDate($date, 'dd.MM.yyyy в HH:mm:ss');
+  }
+  
+  /**
+   * Returns article's UTC timestamp
+   * 
+   * @return string UTC timestamp
+   */
+  public function getTimestamp()
+  {
+    $timestamp = strtotime($this->date);
+    return $timestamp;
   }
 
   /**

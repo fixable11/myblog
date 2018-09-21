@@ -32,7 +32,7 @@ $(document).ready(function() {
 
 		var $formattedDate = $date.substr(-2) + '.' + $mount.substr(-2) + '.' + $year;
 		var $formattedTime = $hours + ':' + $minutes.substr(-2) + ':' + $seconds.substr(-2);
-		$($selector).html($formattedDate + ' ' + $formattedTime);
+		$($selector).html($formattedDate + ' в ' + $formattedTime);
 	}
 
 	//newDate('.post__date, .social__date');
@@ -47,8 +47,12 @@ $(document).ready(function() {
 	var $cookieName = 'timezoneoffset';
 	if(!getCookie($cookieName)){
 		var date = new Date;
+		var offset = date.getTimezoneOffset() / -60;
 		date.setDate(date.getDate() + 30);
-		document.cookie = "timezoneoffset=3; path=/; expires=" + date.toUTCString();
+		document.cookie = "timezoneoffset=" + parseInt(offset) + "; path=/; expires=" + date.toUTCString();
+		newDate('.post__date');
+		newDate('.singleSocial__datetime');
+		newDate('.comment__date');
 	}
 	
 	//setTimezoneCookie();

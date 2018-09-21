@@ -44,7 +44,7 @@ $this->title = $article->title;
               <div class="singleSocial__createdWrap">
                 <i class="fas fa-user singleSocial__authorIcon"></i>
                 <div class="singleSocial__author"><?= $article->author->username ?> <?= $article->author->last_name ?></div>
-                <div class="singleSocial__datetime"><?= $article->getDate(); ?></div>
+                <div class="singleSocial__datetime" data-timestamp="<?= $article->getTimestamp() ?>"><?= $article->getDate(); ?></div>
               </div>
               <div class="singleSocial__likesWrap">
                 <button data-href="<?= Url::to(['article/like-up', 'article_id' => $article->id]) ?>" class="singleSocial__likeUpButton">

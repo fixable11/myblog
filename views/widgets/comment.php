@@ -102,7 +102,7 @@ $state = $session->get('state');
                       <button class="comment__edit btn-info">Редактировать</button>
                       <button  class="comment__cancel btn-danger">Отменить</button>
                     <?php endif; ?>
-                    <div class="comment__date">
+                      <div class="comment__date" data-timestamp="<?= $comment->getTimestamp() ?>">
                       <?= $comment->getDate($timezoneoffset); ?>
                     </div>
                   </div>

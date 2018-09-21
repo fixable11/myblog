@@ -1,7 +1,7 @@
 <?php
 
 /* @var $this \yii\web\View */
-/* @var $articles array|ActiveQuery[] */
+/* @var $articles app\models\Article */
 
 use yii\helpers\Url;
 
@@ -33,7 +33,7 @@ $timezoneoffset = $_COOKIE['timezoneoffset'] ?? 0;
             </a>
             <div class="post__identityRight">
               <a href="#" class="post__author"><?= $article->author->username; ?> <?= $article->author->last_name; ?></a> 
-              <span class="post__date"><?= $article->getDate($timezoneoffset); ?></span>
+              <span class="post__date" data-timestamp="<?= $article->getTimestamp() ?>"><?= $article->getDate($timezoneoffset); ?></span>
             </div>
           </div>
           <ul class="post__socialIcons">

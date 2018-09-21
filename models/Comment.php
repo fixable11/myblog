@@ -136,5 +136,16 @@ class Comment extends \yii\db\ActiveRecord
     }
     return null;
   }
+  
+  /**
+   * Returns comment's UTC timestamp
+   * 
+   * @return string UTC timestamp
+   */
+  public function getTimestamp()
+  {
+    $timestamp = strtotime($this->date);
+    return $timestamp;
+  }
 
 }
